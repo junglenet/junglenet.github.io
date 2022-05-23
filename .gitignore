@@ -40,3 +40,7 @@ yarn-error.log*
 # gltf large files
 /public/gltf/*
 /public/textures/space
+
+# scraps
+
+.scraps.*

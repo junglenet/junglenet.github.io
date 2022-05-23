@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
-import {Suspense, useEffect } from 'react'
+import { useEffect } from 'react'
 import useStore from '@/utils/store'
 import partition from '@/utils/partition'
 import Dom from '@/components/Three/layout/dom'
@@ -12,29 +12,25 @@ const SCanvas = dynamic(() => import('@/components/Three/layout/scroll'), {
   ssr: false,
 })
 
-const PCanvas = dynamic(() => import('@/components/Three/layout/presentation'), {
-  ssr: false,
-})
-// const LCanvas = dynamic(() => import('@/components/Three/layout/canvas'), {
-//   ssr: false,
-// });
-
-
 
 function Overlay() {
+
   return (
     <div style={{
       position: 'absolute', top: 0, left: 0, pointerEvents: 'none', width: '100%', height: '100%'}}>
         <a href="https://pmnd.rs/" style={{
-          position: 'absolute', top: 40, left: 90, fontSize: '13px', color: 'white'
+          position: 'absolute', top: 20, left: 50, fontSize: '13px', color: 'black'
         }}>
           <br/>
           Jung Collectives
         </a>
-        <div style={{ position: 'absolute', top: 40, right: 40, fontSize: '13px', color: 'white'}}>
+      
+        <a href="https://pmnd.rs/" style={{
+          position: 'absolute', top: 20, left: 240, fontSize:'13px', color: 'black'
+        }}>
           <br/>
-          05/15/2022
-        </div>
+          Creating with Three.js
+        </a>
       </div>
   )
 }
@@ -45,9 +41,7 @@ const Balance = ({ child }) => {
   return (
     <>
       <Dom>{dom}</Dom>
-      {/* <SCanvas>{r3f}</SCanvas> */}
-      <PCanvas>{r3f}</PCanvas>
-      {/* <LCanvas>{r3f}</LCanvas> */}
+      <SCanvas>{r3f}</SCanvas>
       
     </>
   )
@@ -65,13 +59,8 @@ function App({ Component, pageProps = { title: 'index' } }) {
   return (
     <>
       <Header title={pageProps.title} />
-      
-      {/* <Balance child={child} /> */}
-      {/* <Suspense> */}
-
         <Balance child={child} />
-      {/* </Suspense> */}
-      <Overlay />
+      <Overlay/>
     </>
   )
 }
