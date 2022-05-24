@@ -21,7 +21,7 @@ const SCanvas = ({ children }) => {
           depth: false,
         }}
       >
-        <ScrollControls damping={6} pages={21} >
+        <ScrollControls damping={6} pages={22} >
           {/* @ts-ignore */}
         <Scroll html style={{ width: '100%', height: '100%'}}>
             {Object.values(cvURLS).map((cv) =>  (
