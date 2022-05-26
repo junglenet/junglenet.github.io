@@ -27,7 +27,7 @@ const SCanvas = ({ children }) => {
             {Object.values(cvURLS).map((cv) =>  (
               <HTMLItem key={`page-${cv.page}`}>
                 {cv.url && <Redirect key={`link-${cv.page}`} href={cv.url} target="_blank"/>}
-                <img key={`${cv.name}`} height={'800px'} src={`${nftStorageBase}/${cv.cid}`} alt="test-cv-page"/>
+                <img key={`${cv.name}`} height={'800px'} width="100vw" src={`${nftStorageBase}/${cv.cid}`} alt="test-cv-page"/>
               </HTMLItem>
             ))}
           </Scroll>
