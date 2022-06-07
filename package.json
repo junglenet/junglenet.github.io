@@ -34,6 +34,7 @@
     "nanoid": "^3.3.4",
     "next": "12.1.6",
     "react": "18.1.0",
+    "react-colorful": "^5.5.1",
     "react-dom": "18.1.0",
     "short": "^2.6.0",
     "simplex-noise": "^3.0.1",

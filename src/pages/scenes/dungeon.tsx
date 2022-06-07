@@ -1,14 +1,14 @@
 import { Title } from '@/components/Foundation/Text';
 import dynamic from 'next/dynamic';
 
-const Scene = dynamic(() => import('@/components/Three/canvas/Level'), {
+const Scene = dynamic(() => import('@/components/Three/canvas/Dungeon'), {
   ssr: false
 })
 
 // dom components goes here
 const DOM = () => {
   return (
-      <Title >Jung Collectives</Title>
+      <Title >Welcome to the Dungeon</Title>
       )
     }
 
@@ -19,6 +19,7 @@ const R3F = () => {
 }
 
 const Page = () => {
+   
   return (
     <>
     <DOM />
@@ -33,7 +34,7 @@ export default Page
 export async function getStaticProps() {
   return {
     props: {
-      title: 'Home',
+      title: 'Dungeon',
     },
   }
 }

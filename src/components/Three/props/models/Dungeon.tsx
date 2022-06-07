@@ -43,7 +43,7 @@ export default function Model({ ...props }: JSX.IntrinsicElements['group']) {
           <group rotation={[-Math.PI / 2, 0, 0]} scale={100}>
             <mesh geometry={nodes.Circle_M_Circle_0.geometry} material={materials.M_Circle} >
               <meshStandardMaterial toneMapped
-                color="#1D9553" metalness={1} roughness={5}/>
+                color="skyblue" metalness={1} roughness={5}/>
             </mesh>
             <mesh geometry={nodes.Circle_M_Circle_Water_0.geometry} material={materials.M_Circle_Water}>
             {/* <meshReflectorMaterial color="blue"/> */}

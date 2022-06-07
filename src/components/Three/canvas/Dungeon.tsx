@@ -17,7 +17,7 @@ export default function DungeonShader() {
   return (
     <mesh ref={mesh} position={[0, -4, 0]}>
       
-      {/* <directionalLight intensity={0.1} position={[0, 15, 0]} color="yellow" /> */}
+      <directionalLight intensity={0.1} position={[0, 15, 0]} color="yellow" />
       {/* <sphereGeometry attach="geometry" args={[2, 32, 32]} /> */}
       <SparkleLights size={4} scale={1.5}  position={[0, 0, 0]} color="#ABF5F3"/>
       <SpotLight
@@ -33,8 +33,8 @@ export default function DungeonShader() {
       {floatingEths({})}
       {floatingEths({position: [-3, 1, -1], scale: 0.03})}
       {glowShroom({})}
-      {/* <MagicPortal scale={.8}  position={[0, 0, 0]}/> */}
-      {/* <Dungeon route="/"/> */}
+      <MagicPortal scale={.8}  position={[0, .4, 0]}/>
+      <Dungeon route="/dungeon"/>
     </mesh>
   );
 }

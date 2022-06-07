@@ -1,20 +1,22 @@
+
 import { Title } from '@/components/Foundation/Text';
 import dynamic from 'next/dynamic';
 
-const Scene = dynamic(() => import('@/components/Three/canvas/Level'), {
+const Scene = dynamic(() => import('@/components/Three/canvas/Loading'), {
   ssr: false
 })
 
 // dom components goes here
 const DOM = () => {
   return (
-      <Title >Jung Collectives</Title>
+      <Title >Loading Scene...</Title>
       )
     }
 
 const R3F = () => {
   return (
-    <Scene />
+      
+    <Scene route="/scenes"/>
   )
 }
 
@@ -33,7 +35,7 @@ export default Page
 export async function getStaticProps() {
   return {
     props: {
-      title: 'Home',
+      title: 'Loading...',
     },
   }
 }
