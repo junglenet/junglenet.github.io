@@ -1,7 +1,7 @@
 import { Title } from '@/components/Foundation/Text';
 import dynamic from 'next/dynamic';
 
-const Scene = dynamic(() => import('@/components/Three/canvas/Box'), {
+const Scene = dynamic(() => import('@/components/Three/canvas/Dungeon'), {
   ssr: false
 })
 
@@ -14,7 +14,7 @@ const DOM = () => {
 
 const R3F = () => {
   return (
-    <Scene route="/box" />
+    <Scene />
   )
 }
 

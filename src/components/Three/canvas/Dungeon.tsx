@@ -33,8 +33,8 @@ export default function DungeonShader() {
       {floatingEths({})}
       {floatingEths({position: [-3, 1, -1], scale: 0.03})}
       {glowShroom({})}
-      <MagicPortal scale={.8}  position={[0, 0, 0]}/>
-      <Dungeon route="/"/>
+      {/* <MagicPortal scale={.8}  position={[0, 0, 0]}/> */}
+      {/* <Dungeon route="/"/> */}
     </mesh>
   );
 }

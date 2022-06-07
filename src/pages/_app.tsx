@@ -8,7 +8,7 @@ import Header from '@/config'
 // import '@/styles/globals.css'
 import '../index.css';
 
-const SCanvas = dynamic(() => import('@/components/Three/layout/presentation'), {
+const SCanvas = dynamic(() => import('@/components/Three/layout/canvas'), {
   ssr: false,
 })
 

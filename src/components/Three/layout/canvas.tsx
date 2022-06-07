@@ -1,5 +1,5 @@
 import { Canvas, useThree } from '@react-three/fiber'
-import { AdaptiveDpr, AdaptiveEvents, BakeShadows, Environment, OrbitControls, Preload, Stars } from '@react-three/drei'
+import { AdaptiveDpr, AdaptiveEvents, BakeShadows, Environment, OrbitControls, Preload, Sky, Stars } from '@react-three/drei'
 import useStore from '@/utils/store'
 import { Suspense, useEffect, useRef } from 'react'
 import Loader from '../helpers/Loader'
@@ -47,10 +47,9 @@ const LCanvas = ({ children }) => {
         <AdaptiveDpr pixelated/>
         <AdaptiveEvents />
         <LControl />
-        {/* <ambientLight color="orange" intensity={0.05} /> */}
         <hemisphereLight color="orange" intensity={0.02}/>
         <Lightbulb position={[0, 0, 0]} intensity={.5} rotation={[-Math.PI / 2, 10, 0]} color="blue"/>
-        {/* <Sky distance={50000} sunPosition={[3, 5, 1]} inclination={10} azimuth={0.25}/> */}
+        <Sky distance={50000} sunPosition={[3, 5, 1]} inclination={10} azimuth={0.25}/>
         {/* <Sky turbidity={8} rayleigh={6} mieCoefficient={.005} mieDirectionalG={0.8} sunPosition={ [0, 0, 0]} /> */}
         {/* <Cloud
           opacity={0.5}
