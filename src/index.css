@@ -20,7 +20,7 @@
 
 @supports (font-variation-settings: normal) {
   html {
-    font-family: 'Chainprinter', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 }
 
@@ -44,7 +44,7 @@
     margin: 0;
     padding: 0;
     /* overflow: hidden; */
-    font-family: "Chainprinter", sans-serif;
+    font-family: "Inter", sans-serif;
   }
   
   body {

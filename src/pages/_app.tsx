@@ -8,7 +8,7 @@ import Header from '@/config'
 // import '@/styles/globals.css'
 import '../index.css';
 
-const SCanvas = dynamic(() => import('@/components/Three/layout/scroll'), {
+const SCanvas = dynamic(() => import('@/components/Three/layout/presentation'), {
   ssr: false,
 })
 
@@ -19,14 +19,14 @@ function Overlay() {
     <div style={{
       position: 'absolute', top: 0, left: 0, pointerEvents: 'none', width: '100%', height: '100%'}}>
         <a href="https://pmnd.rs/" style={{
-          position: 'absolute', top: 20, left: 50, fontSize: '13px', color: 'black'
+          position: 'absolute', top: 20, left: 50, fontSize: '13px', color: 'white'
         }}>
           <br/>
           Jung Collectives
         </a>
       
         <a href="https://pmnd.rs/" style={{
-          position: 'absolute', top: 20, left: 240, fontSize:'13px', color: 'black'
+          position: 'absolute', top: 20, left: 240, fontSize:'13px', color: 'white'
         }}>
           <br/>
           Creating with Three.js
