@@ -24,7 +24,7 @@ export default function Model({ ...props }: JSX.IntrinsicElements['group']) {
   const group = useRef<THREE.Group>()
   const { nodes, materials } = useGLTF('/cursor-transformed.glb') as GLTFResult
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} rotation={[0, 1, 0]} {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]} userData={{ name: 'Sketchfab_model' }}>
         <group rotation={[Math.PI / 2, 0, 0]} userData={{ name: '1095acfb6b0747db8a7aadff5b388720.fbx' }}>
           <group userData={{ name: 'RootNode' }}>

@@ -89,8 +89,8 @@ const LCanvas = ({ children }) => {
 
   return !isLoading ? (
       <Canvas
-        shadows={router.route.includes('dungeon')}
-        flat={!router.route.includes('dungeon')}
+        shadows // ={router.route.includes('dungeon')}
+        flat={router.route.includes('cv')}
         dpr={!router.route.includes('dungeon') && [1, 2]} 
         // @ts-ignore
         raycaster={ router.route.includes('dungeon') && { computeOffsets:({ clientX, clientY }) => ({
@@ -106,7 +106,7 @@ const LCanvas = ({ children }) => {
           rotation: [Math.PI / 2, 10, 0],
         } : router.route.includes('cv') 
             ? { fov: 15, zoom:  1, position: [0, 0, 2] }
-            : { fov: 25, position: [0, 0, 8] }}
+            : { position: [0, 0, 0]}}
         onCreated={(state) => state.events.connect(dom.current)}
       >
         {
@@ -134,6 +134,7 @@ const LCanvas = ({ children }) => {
           ) : (
             <>
               <color attach="background" args={['#000000']} />
+              <CameraController />
               <Suspense fallback={null}>
                 {children}
                 <Preload all />

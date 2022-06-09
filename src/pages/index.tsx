@@ -1,7 +1,7 @@
 import { Title } from '@/components/Foundation/Text';
 import dynamic from 'next/dynamic';
 
-const Scene = dynamic(() => import('@/components/Three/canvas/Level'), {
+const Scene = dynamic(() => import('@/components/Three/props/portals/Nav'), {
   ssr: false
 })
 

@@ -23,7 +23,7 @@ function Overlay() {
   return (
     <div style={{
       position: 'absolute', top: 0, left: 0, pointerEvents: 'none', width: '100%', height: '100%'}}>
-        <a href="https://pmnd.rs/" style={{
+        <a href="https://dogemoms.xyz" style={{
           position: 'absolute', top: 20, left: 50, 
           fontSize: '13px', color: textColor
         }}>
