@@ -1,20 +1,31 @@
+import { GridHelper } from "three";
 import { Bounds, Edges, Html, useGLTF } from "@react-three/drei"
 import { Depth, Fresnel, Gradient, LayerMaterial } from "lamina";
 import { useFrame } from "@react-three/fiber"
 import { useControls } from "leva";
-import { useRef } from "react";
-import Model from "../../models/Cursor";
-import { GridHelper } from "three";
+import { useRef, useState } from "react";
+import { motion, Variants, Transition } from "framer-motion";
 
-export const CursorPortal = (props) => {
+export const NavPortals = (props) => {
   const group = useRef<any>(null);
 
+  return (
+    <mesh ref={group}>
+      <CursorButton/>
+    </mesh>
+  )
+}
+
+const CursorButton = (props) => {
+  const group = useRef<any>(null);
 
   return (
       <mesh ref={group} {...props}>
           <Bounds fit clip observe>
-            <Cursor scale={[.5, 1.02, .6]} position={[-4, 2, -2]} rotation={[1, 4, 0]}/>
-            
+            <group>
+              <Cursor scale={[.5, 1.02, .6]} position={[-4, 2, -2]} rotation={[1, 4, 0]}/>
+              <ToolTip1/>
+            </group>
             <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} />
           </Bounds>
       </mesh>
@@ -33,7 +44,7 @@ export const CursorPortal = (props) => {
       </Bounds>
       <gridHelper args={[10, 40, '#101010', '#050505']} position={[-0.25, 0, 0]} rotation={[0, 0, Math.PI / 2]} />
     </group> */}
-export function Cursor(props) {
+function Cursor(props) {
   const ref = useRef<any>(null);
   // @ts-ignore
   const {nodes } = useGLTF('/lamina-cursor.glb')
@@ -63,4 +74,121 @@ export function Cursor(props) {
   )
 }
 
-export default CursorPortal;
+function ToolTip1() {
+  return (
+    <Html center position={[-1, 1, -1]}>
+      <button style={{background: 'pink', borderRadius: '8px', padding: '.5rem 1rem'}}>
+        <p style={{color: 'white'}}>Curriculum Vitae</p>
+      </button>
+    </Html>
+  );
+}
+
+function ToolTip2() {
+  return (
+    <Html center position={[1, -1, -1]}>
+      <p>Scroll to zoom in and out</p>
+    </Html>
+  );
+}
+
+function ToolTip3() {
+  return (
+    <Html center position={[-1, -1, 1]}>
+      <p>{"<== Code's on the left, with details in the comments"}</p>
+    </Html>
+  );
+}
+
+
+const Button = () => {
+  const [isHover, setIsHover] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+
+  return (
+    <motion.button
+      initial={false}
+      animate={[isLiked ? "liked" : "unliked", isHover ? "hover" : "rest"]}
+      whileTap="press"
+      variants={buttonVariants}
+      onHoverStart={() => setIsHover(true)}
+      onHoverEnd={() => setIsHover(false)}
+      onClick={() => setIsLiked(!isLiked)}
+      style={{background: 'pink'}}
+    >
+      <motion.div
+        className="icon"
+        variants={{
+          liked: { opacity: 0, transition: iconFadeTransition },
+          hover: isLiked
+            ? { opacity: 0, transition: iconFadeTransition }
+            : { opacity: 1 }
+        }}
+      >
+        {/* Icon here */}
+      </motion.div>
+      <div className="label">
+        <motion.span variants={labelTextVariants} className="default">
+          Star
+          <motion.span variants={successTextVariants} className="success">
+            red
+          </motion.span>
+        </motion.span>
+      </div>
+      <div className="number">
+        <motion.span variants={currentCountVariants} className="current">
+          38
+        </motion.span>
+        <motion.span variants={newCountVariants} className="new">
+          39
+        </motion.span>
+      </div>
+    </motion.button>
+  )
+}
+
+const iconFadeTransition: Transition = { duration: 0.2, delay: 0.3 };
+
+
+const buttonVariants: Variants = {
+  rest: {
+    // "--button-star-greyscale": "100%",
+    // "--button-star-contrast": "0%",
+    transition: { duration: 0.7 }
+  },
+  hover: {
+    // "--button-star-greyscale": "0%",
+    // "--button-star-contrast": "100%",
+    scale: 1.2,
+    y: -8
+  },
+  press: { scale: 1.1 }
+};
+
+const labelTextVariants: Variants = {
+  unliked: { x: 24 },
+  liked: { x: -46 }
+};
+
+const successTextVariants: Variants = {
+  unliked: { opacity: 0 },
+  liked: { opacity: 1 }
+};
+
+const likedTransition: Transition = {
+  duration: 0.25,
+  delay: 0.3
+};
+
+const currentCountVariants: Variants = {
+  unliked: { opacity: 1, y: 0, transition: { duration: 0.25 } },
+  liked: { opacity: 0, y: -40, transition: likedTransition }
+};
+
+const newCountVariants: Variants = {
+  unliked: { opacity: 0, y: 40, transition: { duration: 0.25 } },
+  liked: { opacity: 1, y: 0, transition: likedTransition }
+};
+
+
+export default NavPortals;

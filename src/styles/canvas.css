@@ -2,3 +2,13 @@
 .first-scroll-box {
   z-index: 0;
 }
+
+.nav-btn {
+  padding-top: 10px;
+  transform: translate3d(50%, 50%, 0);
+  text-align: left;
+  background: #20203575;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
