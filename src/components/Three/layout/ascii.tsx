@@ -13,7 +13,7 @@ const AsciiBg = (props) => {
       <pointLight position={[-10, -10, -10]} />
       <Torusknot />
       <OrbitControls />
-      <AsciiRenderer invert />
+      {/* <AsciiRenderer invert /> */}
     </mesh>
   )
 }

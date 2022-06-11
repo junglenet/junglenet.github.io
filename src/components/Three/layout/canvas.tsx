@@ -1,4 +1,4 @@
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { AdaptiveDpr, AdaptiveEvents, Backdrop, BakeShadows, Cloud, Environment, Preload, Scroll, ScrollControls, Sky, Stars } from '@react-three/drei'
 import useStore from '@/utils/store'
 import { Suspense, useCallback, useEffect, useState } from 'react'
@@ -9,6 +9,7 @@ import { cvURLS, nftStorageBase } from '@/constants/urls'
 import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
 import AsciiBg from './ascii'
+import { Vector3 } from 'three'
 
 const DungeonView = ({children}) => {
   return (
@@ -94,20 +95,18 @@ const LCanvas = ({ children }) => {
         flat={router.route.includes('cv')}
         dpr={!router.route.includes('dungeon') && [1, 2]} 
         // @ts-ignore
-        raycaster={ router.route.includes('dungeon') && { computeOffsets:({ clientX, clientY }) => ({
+        raycaster={ !router.route.includes('cv') && { computeOffsets:({ clientX, clientY }) => ({
             offsetX: clientX, offsetY: clientY 
           })
       }}
         // className="canvas"
         style={{background: "navy", }}
-      // @ts-ignore
-        // mode='concurrent'
         camera={router.route.includes('dungeon') ? {
           position: [-1, 0, 15],
           rotation: [Math.PI / 2, 10, 0],
         } : router.route.includes('cv') 
-            ? { fov: 15, zoom:  1, position: [0, 0, 2] }
-            : { position: [0, 0, 0]}}
+            ? { fov: 15, zoom:  1, position: [0, 0, 0] }
+            : {  position: [0, 0, 0]}}
         onCreated={(state) => state.events.connect(dom.current)}
       >
         {
@@ -135,14 +134,18 @@ const LCanvas = ({ children }) => {
           ) : (
             <>
               <color attach="background" args={['#000000']} />
+              <fog attach="fog" args={['black', 0, 32]} />
+              <pointLight position={[0, 10, -10]} intensity={1} />
               <CameraController />
-              <Backdrop castShadow floor={2} >
-                <AsciiBg />
-              </Backdrop>
+              {/* <Backdrop floor={0}  receiveShadow>
+              </Backdrop> */}
               <Suspense fallback={null}>
                 {children}
                 <Preload all />
+                <AsciiBg />
               </Suspense>
+             
+               <Zoom/>
             </>
           )
         }
@@ -153,6 +156,12 @@ const LCanvas = ({ children }) => {
   )
 }
 
+function Zoom() {
+  useFrame((state) => {
+    state.camera.position.lerp(new Vector3(0, 0, 14), 0.003)
+    state.camera.lookAt(-1, 0, 0)
+  })
+}
 
 const HTMLItem = styled.div`
   position: relative;
