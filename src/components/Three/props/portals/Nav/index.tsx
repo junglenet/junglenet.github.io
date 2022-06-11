@@ -1,8 +1,7 @@
 import * as THREE from "three";
-import { Bounds, Edges, useGLTF, Text, useCursor, useFBO, MeshReflectorMaterial } from "@react-three/drei"
+import { Bounds, Edges, useGLTF, Text, useCursor, MeshReflectorMaterial } from "@react-three/drei"
 import { Depth, Fresnel, Gradient, LayerMaterial } from "lamina";
 import { useFrame } from "@react-three/fiber"
-import { useControls } from "leva";
 import { useRef, useState } from "react";
 import { motion, Variants, Transition } from "framer-motion";
 import { Vector3 } from "three";
@@ -124,7 +123,6 @@ function Cursor(props) {
   const ref = useRef<any>(null);
   // @ts-ignore
   const {nodes } = useGLTF('/lamina-cursor.glb')
-  const gradient = useControls({ gradient: { value: 0.7, min: 0, max: 1 }}) as any;
 
   // Animate gradient
   useFrame((state) => {
@@ -139,22 +137,13 @@ function Cursor(props) {
   return (
     <mesh geometry={nodes.Cube.geometry} {...props} >
       <LayerMaterial ref={ref} toneMapped={false}>
-        <Depth colorA="#ff0080" colorB="black" alpha={1} mode="normal" near={0.5 * gradient} far={0.5} origin={[0, 0, 0]} />
-        <Depth colorA="blue" colorB="#f7b955" alpha={1} mode="add" near={2 * gradient} far={2} origin={[0, 1, 1]} />
-        <Depth colorA="green" colorB="#f7b955" alpha={1} mode="add" near={3 * gradient} far={3} origin={[0, 1, -1]} />
-        <Depth colorA="white" colorB="red" alpha={1} mode="overlay" near={1.5 * gradient} far={1.5} origin={[1, -1, -1]} />
+        <Depth colorA="#ff0080" colorB="black" alpha={1} mode="normal"  far={0.5} origin={[0, 0, 0]} />
+        <Depth colorA="blue" colorB="#f7b955" alpha={1} mode="add"  far={2} origin={[0, 1, 1]} />
+        <Depth colorA="green" colorB="#f7b955" alpha={1} mode="add"  far={3} origin={[0, 1, -1]} />
+        <Depth colorA="white" colorB="red" alpha={1} mode="overlay" far={1.5} origin={[1, -1, -1]} />
         <Fresnel mode="add" color="white" intensity={0.5} power={1.5} bias={0.05} />
       </LayerMaterial>
-      <MeshReflectorMaterial
-            blur={[400, 100]}
-            resolution={1024}
-            mixBlur={1}
-            opacity={2}
-            depthScale={1.1}
-            minDepthThreshold={0.4}
-            maxDepthThreshold={1.25}
-            roughness={1} mirror={0}                />
-      <Edges color="white" />
+      <Edges color="gold" />
     </mesh>
   )
 }
@@ -177,12 +166,6 @@ function ToolTip1(props) {
       >
         <Text color="gold" fontSize={2} letterSpacing={-0.06} {...props}>CV</Text>
       </mesh>
-
-    // <Html center position={[-5, 4, 0]}>
-    //   <button style={{background: '#e4ff0021', borderRadius: '8px', padding: '.5rem 1rem'}}>
-    //     <p style={{color: 'white'}}>Curriculum Vitae</p>
-    //   </button>
-    // </Html>
   );
 }
 
@@ -211,12 +194,6 @@ function ToolTip3(props) {
   const [clicked, click] = useState(false)
   const [hovered, hover] = useState(false)
   useCursor(hovered)
-  // const [video] = useState(() => Object.assign(document.createElement('video'), { src: '/world-snapshot.mp4', crossOrigin: 'Anonymous', loop: true }))
-  // useEffect(() => void (clicked && video.play()), [video, clicked])
-  // const onLoad = useCallback(() => {
-  //   click(true)
-  // }, [click])
-  // useEffect(() => onLoad(), [onLoad])
   
   return (
     <mesh 
@@ -231,23 +208,11 @@ function ToolTip3(props) {
           color="gold" 
           {...props}>
           WORLD  
-          {/* <meshBasicMaterial toneMapped={false}>
-            <videoTexture args={[video]} attach="map" encoding={THREE.sRGBEncoding}/>
-          </meshBasicMaterial> */}
         </Text>
       </mesh>
 
   );
 }
-
-// function Ground() {
-//   const [floor, normal] = useTexture(['/SurfaceImperfections003_1K_var1.jpg', '/SurfaceImperfections003_1K_Normal.jpg'])
-//   return (
-//     <Reflector blur={[400, 100]} resolution={512} args={[10, 10]} mirror={0.5} mixBlur={6} mixStrength={1.5} rotation={[-Math.PI / 2, 0, Math.PI / 2]}>
-//       {(Material, props) => <Material color="#a0a0a0" metalness={0.4} roughnessMap={floor} normalMap={normal} normalScale={[2, 2]} {...props} />}
-//     </Reflector>
-//   )
-// }
 
 const Button = () => {
   const [isHover, setIsHover] = useState(false);
