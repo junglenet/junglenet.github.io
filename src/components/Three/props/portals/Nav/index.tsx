@@ -12,6 +12,8 @@ export const NavPortals = (props) => {
   return (
     <mesh ref={group}>
       <CursorButton/>
+      <CursorButton2 />
+      <CursorButton3 />
     </mesh>
   )
 }
@@ -29,21 +31,43 @@ const CursorButton = (props) => {
             <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} />
           </Bounds>
       </mesh>
-    //   <group ref={group} rotation={[Math.PI / -1, Math.PI / 3, -Math.PI / 2]} {...props}>
-    //   <Bounds fit clip observe margin={1.25}>
-    //     <Cursor scale={[0.1, 0.12, 0.06]} />
-    //   </Bounds>
-    //   <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 0]} rotation={[0, 0, Math.PI / 2]} />
-    // </group>
   )
 }
 
-{/* <group rotation={[Math.PI / -4, -Math.PI / -2, Math.PI / 2]}>
-      <Bounds fit clip observe margin={1.25}>
-        <Cursor scale={[0.05, 0.13, 0.07]} />
-      </Bounds>
-      <gridHelper args={[10, 40, '#101010', '#050505']} position={[-0.25, 0, 0]} rotation={[0, 0, Math.PI / 2]} />
-    </group> */}
+
+const CursorButton2 = (props) => {
+  const group = useRef<any>(null);
+
+  return (
+      <mesh ref={group} {...props}>
+          <Bounds fit clip observe>
+            <group>
+              <Cursor scale={[.5, 1.02, .6]} position={[4, -2, 1]} rotation={[-1, 4, -2]}/>
+              <ToolTip2/>
+            </group>
+            <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} />
+          </Bounds>
+      </mesh>
+  )
+}
+
+const CursorButton3 = (props) => {
+  const group = useRef<any>(null);
+
+  return (
+      <mesh ref={group} {...props}>
+          <Bounds fit clip observe>
+            <group>
+              <Cursor scale={[.5, 1.02, .6]} position={[-8, -6, -2]} rotation={[1, 4, 0]}/>
+              <ToolTip3/>
+            </group>
+            <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} />
+          </Bounds>
+      </mesh>
+  )
+}
+
+
 function Cursor(props) {
   const ref = useRef<any>(null);
   // @ts-ignore
@@ -76,8 +100,8 @@ function Cursor(props) {
 
 function ToolTip1() {
   return (
-    <Html center position={[-1, 1, -1]}>
-      <button style={{background: 'pink', borderRadius: '8px', padding: '.5rem 1rem'}}>
+    <Html center position={[-1, 3, -1]}>
+      <button style={{background: '#e4ff0021', borderRadius: '8px', padding: '.5rem 1rem'}}>
         <p style={{color: 'white'}}>Curriculum Vitae</p>
       </button>
     </Html>
@@ -86,16 +110,20 @@ function ToolTip1() {
 
 function ToolTip2() {
   return (
-    <Html center position={[1, -1, -1]}>
-      <p>Scroll to zoom in and out</p>
+    <Html center position={[3, -1, -1]}>
+      <button style={{background: '#e4ff0021', borderRadius: '8px', padding: '.5rem 1rem'}}>
+        <p style={{color: 'white'}}>FreshBaked</p>
+      </button>
     </Html>
   );
 }
 
 function ToolTip3() {
   return (
-    <Html center position={[-1, -1, 1]}>
-      <p>{"<== Code's on the left, with details in the comments"}</p>
+    <Html center position={[-8, -4, 1]}>
+      <button style={{background: '#e4ff0021', borderRadius: '8px', padding: '.5rem 1rem'}}>
+        <p style={{color: 'white'}}>World</p>
+      </button>
     </Html>
   );
 }
