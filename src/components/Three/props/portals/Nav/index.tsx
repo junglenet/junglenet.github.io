@@ -1,18 +1,34 @@
 import * as THREE from "three";
 import { Bounds, Edges, useGLTF, Text, useCursor, MeshReflectorMaterial } from "@react-three/drei"
-import { Depth, Fresnel, Gradient, LayerMaterial } from "lamina";
+import { Depth, Fresnel, LayerMaterial } from "lamina";
 import { useFrame } from "@react-three/fiber"
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, Variants, Transition } from "framer-motion";
 import { Vector3 } from "three";
+import { useRouter } from "next/router";
 
 export const NavPortals = (props) => {
   const group = useRef<any>(null);
+  const router = useRouter();
+  const [selectedPage, setSelectedPage] = useState<string | null>(null)
+  const [hovered, hover] = useState(false)
+  useCursor(hovered)
 
+  useEffect(() => {
+    if (selectedPage) {
+      console.log('page', selectedPage)
+    }
+    console.log('hovered ', hovered)
+  }, [selectedPage, hovered])
+  
   return (
     <mesh ref={group} rotation={[0.1, 0, 6.3]}>
-      
-      <CursorButton/>
+      <mesh
+        onPointerEnter={() => setSelectedPage('/cv')}
+        onClick={() => setSelectedPage('CV')}
+        >
+        <CursorButton/>
+      </mesh>
       <CursorButton2 />
       <CursorButton3 />
       <mesh rotation={[-Math.PI / 2, 0, 0]}position={[0, -5, -2]}>
@@ -66,20 +82,22 @@ function Zoom() {
 
 const CursorButton = (props) => {
   const group = useRef<any>(null);
+  
   useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
 
   return (
-      <mesh ref={group} {...props}>
+      <group 
+      ref={group}
+      {...props}>
          
           <Bounds fit clip observe>
             <group castShadow receiveShadow dispose={null}>
-              <Cursor scale={[.5, 1.02, .6]} position={[5.5, 3.3, -1]} rotation={[1.4, .1, 2]}/>
-              {/* <Cursor scale={[.5, 1.02, .6]} position={[5.5, 3.3, -1]} rotation={[-1.8, 2.2, 5.2]}/> */}
+              <Cursor scale={[.5, 1.02, .6]} position={[4.8, 3.8, -1]} rotation={[1.4, .1, 2]}/>
               <ToolTip1/>
-          </group>
+            </group>
             <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} visible={false} />
           </Bounds>
-      </mesh>
+      </group>
   )
 }
 
@@ -150,19 +168,14 @@ function Cursor(props) {
 
 function ToolTip1(props) {
   const ref = useRef<any>(null);
-  const [clicked, click] = useState(false)
-  const [hovered, hover] = useState(false)
-  useCursor(hovered)
-  
+
   return (
     <mesh 
       castShadow
       ref={ref}
-      position={[3.3, 3, -2]}
-      rotation={[0, -.1, 0]}
-      onClick={() => click(!clicked)}
-      onPointerOver={() => hover(true)}
-      onPointerOut={() => hover(false)}
+      position={[2.4, 3.4, -2]}
+      rotation={[0, 0, 0]}
+      
       >
         <Text color="gold" fontSize={2} letterSpacing={-0.06} {...props}>CV</Text>
       </mesh>

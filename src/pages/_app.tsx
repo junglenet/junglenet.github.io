@@ -33,7 +33,7 @@ function Overlay() {
           </p>
         </a>
       
-        <div style={{position: 'absolute', top: 20, right: '5%', fontSize:'13px', color: 'white'}}>
+        {/* <div style={{position: 'absolute', top: 20, right: '5%', fontSize:'13px', color: 'white'}}>
         <Col gap="2rem">
           <Link href="/">
             HOME
@@ -41,13 +41,11 @@ function Overlay() {
           <Link href="/cv">
             CV
           </Link>
-            {/* <button onClick={onDungeon}> */}
               <Link href="/scenes/dungeon" >
                 DUNGEON
               </Link>
-            {/* </button> */}
         </Col>
-        </div>
+        </div> */}
       </div>
   )
 }
