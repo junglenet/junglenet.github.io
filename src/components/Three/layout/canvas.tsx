@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { AdaptiveDpr, AdaptiveEvents, BakeShadows, Cloud, Environment, Preload, Scroll, ScrollControls, Sky, Stars } from '@react-three/drei'
+import { AdaptiveDpr, AdaptiveEvents, Backdrop, BakeShadows, Cloud, Environment, Preload, Scroll, ScrollControls, Sky, Stars } from '@react-three/drei'
 import useStore from '@/utils/store'
 import { Suspense, useCallback, useEffect, useState } from 'react'
 import Loader from '../helpers/Loader'
@@ -8,6 +8,7 @@ import CameraController from '../helpers/jsm/controls/CameraController'
 import { cvURLS, nftStorageBase } from '@/constants/urls'
 import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
+import AsciiBg from './ascii'
 
 const DungeonView = ({children}) => {
   return (
@@ -135,6 +136,9 @@ const LCanvas = ({ children }) => {
             <>
               <color attach="background" args={['#000000']} />
               <CameraController />
+              <Backdrop castShadow floor={2} >
+                <AsciiBg />
+              </Backdrop>
               <Suspense fallback={null}>
                 {children}
                 <Preload all />

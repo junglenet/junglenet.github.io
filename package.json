@@ -40,7 +40,7 @@
     "short": "^2.6.0",
     "simplex-noise": "^3.0.1",
     "three": "^0.140.1",
-    "three-stdlib": "^2.10.1",
+    "three-stdlib": "^2.10.2",
     "uuid": "^8.3.2",
     "v8": "^0.1.0",
     "zustand": "^4.0.0-rc.1"

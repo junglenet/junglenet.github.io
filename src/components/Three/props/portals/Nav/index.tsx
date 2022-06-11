@@ -42,7 +42,7 @@ const CursorButton2 = (props) => {
       <mesh ref={group} {...props}>
           <Bounds fit clip observe>
             <group>
-              <Cursor scale={[.5, 1.02, .6]} position={[4, -2, 1]} rotation={[-1, 4, -2]}/>
+              <Cursor scale={[.5, 1.02, .6]} position={[4, -2, 0]} rotation={[-1, 4, -2]}/>
               <ToolTip2/>
             </group>
             <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} />
@@ -58,7 +58,7 @@ const CursorButton3 = (props) => {
       <mesh ref={group} {...props}>
           <Bounds fit clip observe>
             <group>
-              <Cursor scale={[.5, 1.02, .6]} position={[-8, -6, -2]} rotation={[1, 4, 0]}/>
+              <Cursor scale={[.5, 1.02, .6]} position={[-6, -4, -2]} rotation={[1, 4, 0]}/>
               <ToolTip3/>
             </group>
             <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} />
@@ -100,7 +100,7 @@ function Cursor(props) {
 
 function ToolTip1() {
   return (
-    <Html center position={[-1, 3, -1]}>
+    <Html center position={[-5, 4, 0]}>
       <button style={{background: '#e4ff0021', borderRadius: '8px', padding: '.5rem 1rem'}}>
         <p style={{color: 'white'}}>Curriculum Vitae</p>
       </button>
@@ -110,7 +110,7 @@ function ToolTip1() {
 
 function ToolTip2() {
   return (
-    <Html center position={[3, -1, -1]}>
+    <Html center position={[3, -1, 1]}>
       <button style={{background: '#e4ff0021', borderRadius: '8px', padding: '.5rem 1rem'}}>
         <p style={{color: 'white'}}>FreshBaked</p>
       </button>
@@ -120,7 +120,7 @@ function ToolTip2() {
 
 function ToolTip3() {
   return (
-    <Html center position={[-8, -4, 1]}>
+    <Html center position={[-7, -3, 0]}>
       <button style={{background: '#e4ff0021', borderRadius: '8px', padding: '.5rem 1rem'}}>
         <p style={{color: 'white'}}>World</p>
       </button>
