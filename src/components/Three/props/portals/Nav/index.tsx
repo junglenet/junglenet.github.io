@@ -28,7 +28,7 @@ const CursorButton = (props) => {
               <Cursor scale={[.5, 1.02, .6]} position={[-4, 2, -2]} rotation={[1, 4, 0]}/>
               <ToolTip1/>
             </group>
-            <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} />
+            <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} visible={false} />
           </Bounds>
       </mesh>
   )
@@ -45,7 +45,7 @@ const CursorButton2 = (props) => {
               <Cursor scale={[.5, 1.02, .6]} position={[4, -2, 0]} rotation={[-1, 4, -2]}/>
               <ToolTip2/>
             </group>
-            <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} />
+            <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} visible={false}/>
           </Bounds>
       </mesh>
   )
@@ -61,7 +61,7 @@ const CursorButton3 = (props) => {
               <Cursor scale={[.5, 1.02, .6]} position={[-6, -4, -2]} rotation={[1, 4, 0]}/>
               <ToolTip3/>
             </group>
-            <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} />
+            <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} visible={false}/>
           </Bounds>
       </mesh>
   )
