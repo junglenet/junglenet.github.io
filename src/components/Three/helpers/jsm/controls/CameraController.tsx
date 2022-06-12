@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { extend, useFrame, useThree } from "@react-three/fiber";
+import React, { useEffect } from "react";
+import { extend, useThree } from "@react-three/fiber";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as THREE from 'three';
 
@@ -13,6 +13,7 @@ const CameraController = () => {
 
       controls.minDistance = 3;
       controls.maxDistance = 20;
+    
       return () => {
         controls.dispose();
       };

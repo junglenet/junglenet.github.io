@@ -1,14 +1,12 @@
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import useStore from '@/utils/store'
 import partition from '@/utils/partition'
 import Dom from '@/components/Three/layout/dom'
-import { Col } from '@/components/Layout/styled'
 import Header from '@/config'
 // import '@/styles/globals.css'
 import '../index.css';
-import Link from 'next/link'
 
 const SCanvas = dynamic(() => import('@/components/Three/layout/canvas'), {
   ssr: false,
@@ -22,7 +20,7 @@ function Overlay() {
 
   return (
     <div style={{
-      position: 'absolute', top: 0, left: 0, pointerEvents: 'none', width: '100%', height: '100%'}}>
+      position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}>
         <a href="https://dogemoms.xyz" style={{
           position: 'absolute', top: 20, left: 50, 
           fontSize: '13px', color: textColor
@@ -75,7 +73,7 @@ function App({ Component, pageProps = { title: 'Jenny Jung' } }) {
     <>
       <Header title={pageProps.title} />
         <Balance child={child} />
-      <Overlay/>
+      {/* <Overlay/> */}
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import { AdaptiveDpr, AdaptiveEvents, Backdrop, BakeShadows, Cloud, Environment, Preload, Scroll, ScrollControls, Sky, Stars } from '@react-three/drei'
+import { AdaptiveDpr, AdaptiveEvents, Backdrop, BakeShadows, Cloud, Environment, OrbitControls, Preload, Scroll, ScrollControls, Sky, Stars, TransformControls } from '@react-three/drei'
 import useStore from '@/utils/store'
 import { Suspense, useCallback, useEffect, useState } from 'react'
 import Loader from '../helpers/Loader'
@@ -10,6 +10,7 @@ import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
 import AsciiBg from './ascii'
 import { Vector3 } from 'three'
+import { useControls } from 'leva'
 
 const DungeonView = ({children}) => {
   return (
@@ -42,6 +43,9 @@ const DungeonView = ({children}) => {
 const LCanvas = ({ children }) => {
   const dom = useStore((state) => state.dom)
   const router = useRouter()//  useStore((state) => state.router)
+  const { target, setTarget } = useStore()
+  const { mode } = useControls({ mode: { value: 'translate', options: ['translate', 'rotate', 'scale'] } })
+  
   const [isLoading, setIsLoading] = useState(true)
  
   const onRoute = useCallback(() => {
@@ -75,9 +79,6 @@ const LCanvas = ({ children }) => {
         }
       }        
       )
-      // window.removeEventListener('pageshow', () => {
-      //   setIsLoading(true)
-      // })
     }
   }, [router.route])
 
@@ -89,11 +90,34 @@ const LCanvas = ({ children }) => {
     } 
   }, [onRoute, isLoading])
 
-  return !isLoading ? (
+  return isLoading ? (
+    <Canvas>
+      <Loader />
+    </Canvas>
+  ) : router.route === "/" ? (
+      <Canvas
+        onPointerMissed={() => setTarget(null)}
+        >
+         <>
+          <color attach="background" args={['#000000']} />
+          <fog attach="fog" args={['black', 0, 25]} />
+          <pointLight position={[0, 10, -10]} intensity={1} />
+          {/* <CameraController/> */}
+          <OrbitControls makeDefault/>
+          <Suspense fallback={null}>
+            {children}
+            <Preload all />
+            <AsciiBg />
+          </Suspense>
+          {target && <TransformControls object={target} mode={mode} />}
+            <Zoom/>
+        </>
+      </Canvas>
+    ) : (
       <Canvas
         shadows // ={router.route.includes('dungeon')}
-        flat={router.route.includes('cv')}
-        dpr={!router.route.includes('dungeon') && [1, 2]} 
+        // flat={router.route.includes('cv')}
+        // dpr={!router.route.includes('dungeon') && [1, 2]} 
         // @ts-ignore
         raycaster={ !router.route.includes('cv') && { computeOffsets:({ clientX, clientY }) => ({
             offsetX: clientX, offsetY: clientY 
@@ -108,6 +132,7 @@ const LCanvas = ({ children }) => {
             ? { fov: 15, zoom:  1, position: [0, 0, 0] }
             : {  position: [0, 0, 0]}}
         onCreated={(state) => state.events.connect(dom.current)}
+        onPointerMissed={() => setTarget(null)}
       >
         {
           router.route.includes('cv') ? (
@@ -131,28 +156,10 @@ const LCanvas = ({ children }) => {
             </>
           ) : router.route.includes('dungeon') ? (
               <DungeonView>{children}</DungeonView>
-          ) : (
-            <>
-              <color attach="background" args={['#000000']} />
-              <fog attach="fog" args={['black', 0, 32]} />
-              <pointLight position={[0, 10, -10]} intensity={1} />
-              <CameraController />
-              {/* <Backdrop floor={0}  receiveShadow>
-              </Backdrop> */}
-              <Suspense fallback={null}>
-                {children}
-                <Preload all />
-                <AsciiBg />
-              </Suspense>
-             
-               <Zoom/>
-            </>
-          )
+          ) : (<></>)
         }
         
       </Canvas>
-  ) : (
-    <></>
   )
 }
 
@@ -161,6 +168,7 @@ function Zoom() {
     state.camera.position.lerp(new Vector3(0, 0, 14), 0.003)
     state.camera.lookAt(-1, 0, 0)
   })
+  return null;
 }
 
 const HTMLItem = styled.div`
