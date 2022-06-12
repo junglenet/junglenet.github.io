@@ -1,16 +1,14 @@
 import * as THREE from "three";
-import { Bounds, Edges, useGLTF, Text, useCursor, MeshReflectorMaterial, SpotLight } from "@react-three/drei"
+import { Bounds, Edges, useGLTF, Text, useCursor, MeshReflectorMaterial } from "@react-three/drei"
 import { Depth, Fresnel, LayerMaterial } from "lamina";
 import { useFrame } from "@react-three/fiber"
 import { useCallback, useRef, useState } from "react";
-import { LightProbe, Vector3 } from "three";
+import {  Vector3 } from "three";
 import useStore from "@/utils/store";
 import EarthHologram from "../../models/EarthHologram";
 import RetroComputer from "../RetroComputer";
-import Room7 from "../../models/Room7";
 import MysteryBox from "../../models/MysteryBox";
-import Lightbulb from "../../environment/Lights/Lightbulb";
-import NFTRoom from "@/components/Three/canvas/NFTRoom";
+import GoldenFrame from "../../models/GoldenFrame";
 
 export const NavPortals = (props) => {
   const group = useRef<any>(null);
@@ -36,7 +34,7 @@ export const NavPortals = (props) => {
             depthScale={1.1}
             minDepthThreshold={0.4}
             maxDepthThreshold={1.25}
-            roughness={1} mirror={1}                />
+            roughness={2} mirror={2}                />
         </mesh>
       {/* <Zoom /> */}
       <Lights />
@@ -71,6 +69,7 @@ const CVObject = (props) => {
   
   return (
     <group ref={mesh} {...props}>
+      <rectAreaLight position={[5, 0, 1]}/>
       <RetroComputer />
     </group>
   )
@@ -92,7 +91,7 @@ const FreshBakedButton = (props) => {
                 rotation={[Math.PI, Math.PI, Math.PI]}
                 /> */}
               <rectAreaLight 
-                position={[-8, .8, -1]}
+                position={[-8, 4, -1]}
                 />
               <FreshBakedObject 
                 scale={0.06}
@@ -140,11 +139,12 @@ const NFTButton = (props) => {
                 scale={[.4, .8, .6]} 
                 position={[-11, -0.1, -1.8]} 
                 rotation={[-0.1, .1, -1.6]}/> */}
-                <NFTRoom
-                  scale={0.02}
-                  position={[-12, -1, 0]}
+                <rectAreaLight position={[-13, -1, 1]}/>
+                <NFTObject
+                  scale={0.2}
+                  position={[-13, 0, -2]}
                   />
-              <NFTText/>
+              <NFTText position={[-9, 0, -2]}/>
             </group>
           </Bounds>
       </group>
@@ -252,9 +252,10 @@ const FreshBakedObject = (props) => {
 
 
   return (
-    <mesh ref={mesh} {...props} >
+    <mesh ref={mesh} receiveShadow {...props} >
       {/* <pointLight intensity={0.6} position={[0, 8, -3]}/> */}
-      <MysteryBox receiveShadow />
+
+      <MysteryBox />
     </mesh>
   )
 }
@@ -297,7 +298,7 @@ const WorldObject = (props) => {
 )
 
   return (
-    <mesh ref={mesh} {...props} >
+    <mesh ref={mesh} receiveShadow {...props} >
       <EarthHologram />
     </mesh>
   )
@@ -318,7 +319,7 @@ function NFTText(props) {
     <mesh 
       castShadow
       ref={ref}
-      position={[-8, 0, -2]}
+      // position={[-8, 0, -2]}
       onClick={(e) =>{ 
         e.stopPropagation()
         onClick()
@@ -343,8 +344,8 @@ const NFTObject = (props) => {
   const mesh = useRef<any>(null);
 
   return (
-    <mesh ref={mesh} {...props} >
-      <Room7 />
+    <mesh ref={mesh} receiveShadow {...props} >
+      <GoldenFrame />
     </mesh>
   )
 }
@@ -362,12 +363,12 @@ function Lights() {
   return (
     <>
       <group ref={groupL}>
-        <pointLight position={[0, 7, -15]} distance={5} intensity={10} />
+        <pointLight position={[0,5, -10]} distance={15} intensity={10} />
       </group>
       <group ref={groupR}>
-        <pointLight position={[0, 7, -15]} distance={5} intensity={10} />
+        <pointLight position={[0, 5, -10]} distance={15} intensity={10} />
       </group>
-      <spotLight castShadow ref={front} penumbra={0.75} angle={Math.PI / 4} position={[0, 0, 8]} distance={10} intensity={15} shadow-mapSize={[2048, 2048]} />
+      <spotLight castShadow ref={front} penumbra={0.75} angle={Math.PI / 4} position={[0, 0, 4]} distance={10} intensity={15} shadow-mapSize={[2048, 2048]} />
     </>
   )
 }

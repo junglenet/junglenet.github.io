@@ -13,12 +13,6 @@ export default function RetroComputer({ route }: { route?: string}, props) {
       className="retro-computer-portal-root"
       {...props}
       >
-        <SpotLight 
-          position={[1, -1, -2]} 
-          distance={5}
-          scale={1} 
-          color="gray"
-          />
         <Model position={[0, 0, 0]}/>
     </mesh>
   )
