@@ -1,16 +1,16 @@
+import { useRouter } from 'next/router'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { AdaptiveDpr, AdaptiveEvents, Backdrop, Text, BakeShadows, Cloud, Environment, Html, OrbitControls, Preload, Scroll, ScrollControls, Sky, Stars, TransformControls } from '@react-three/drei'
-import useStore from '@/utils/store'
+import { AdaptiveDpr, AdaptiveEvents, BakeShadows, Cloud, Html, OrbitControls, Preload, Scroll, ScrollControls, Sky, Stars, TransformControls } from '@react-three/drei'
+import { Vector3 } from 'three'
+import { useControls } from 'leva'
+import styled from '@emotion/styled'
 import { Suspense, useCallback, useEffect, useState } from 'react'
+import useStore from '@/utils/store'
+import { cvURLS, nftStorageBase } from '@/constants/urls'
 import Loader from '../helpers/Loader'
 import Lightbulb from '../props/environment/Lights/Lightbulb'
 import CameraController from '../helpers/jsm/controls/CameraController'
-import { cvURLS, nftStorageBase } from '@/constants/urls'
-import styled from '@emotion/styled'
-import { useRouter } from 'next/router'
 import AsciiBg from './ascii'
-import { Vector3 } from 'three'
-import { useControls } from 'leva'
 
 const DungeonView = ({children}) => {
   return (
@@ -20,7 +20,6 @@ const DungeonView = ({children}) => {
       <CameraController />
       <hemisphereLight color="orange" intensity={0.02}/>
       <Lightbulb position={[0, 0, 0]} intensity={.5} rotation={[-Math.PI / 2, 10, 0]} color="blue"/>
-      {/* <Sky distance={50000} sunPosition={[3, 5, 1]} inclination={10} azimuth={0.25}/> */}
       <Sky turbidity={8} rayleigh={6} mieCoefficient={.005} mieDirectionalG={0.8} sunPosition={ [0, 0, 0]} />
       <Cloud
         opacity={0.5}
@@ -32,17 +31,16 @@ const DungeonView = ({children}) => {
       <Suspense fallback={<Loader />}>
         {children}
         <Preload all />
-        <Environment preset="city"/>
         <BakeShadows/>
       </Suspense>
-      
+      <Stars radius={100} depth={50} count={1000} factor={5} saturation={0} fade speed={1} />
     </>
   )
 }
 
 const LCanvas = ({ children }) => {
   const dom = useStore((state) => state.dom)
-  const router = useRouter()//  useStore((state) => state.router)
+  const router = useRouter()
   const { target, setTarget } = useStore()
   const { mode } = useControls({ mode: { value: 'translate', options: ['translate', 'rotate', 'scale'] } })
   
@@ -119,9 +117,7 @@ const LCanvas = ({ children }) => {
       </Canvas>
     ) : (
       <Canvas
-        shadows // ={router.route.includes('dungeon')}
-        // flat={router.route.includes('cv')}
-        // dpr={!router.route.includes('dungeon') && [1, 2]} 
+        shadows
         // @ts-ignore
         raycaster={ !router.route === "/cv" && { computeOffsets:({ clientX, clientY }) => ({
             offsetX: clientX, offsetY: clientY 
@@ -138,11 +134,6 @@ const LCanvas = ({ children }) => {
         onCreated={(state) => state.events.connect(dom.current)}
         onPointerMissed={() => setTarget(null)}
       >
-        {/* <mesh position={[-10, 10, 1]}>
-          <Text color="pink" fontSize={1}>
-            Next
-          </Text>
-        </mesh> */}
         {
           router.route === "/cv" ? (
             <>

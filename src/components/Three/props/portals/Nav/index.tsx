@@ -1,25 +1,20 @@
 import * as THREE from "three";
-import { Bounds, Edges, useGLTF, Text, useCursor, MeshReflectorMaterial, TransformControls } from "@react-three/drei"
+import { Bounds, Edges, useGLTF, Text, useCursor, MeshReflectorMaterial } from "@react-three/drei"
 import { Depth, Fresnel, LayerMaterial } from "lamina";
 import { useFrame } from "@react-three/fiber"
-import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, Variants, Transition } from "framer-motion";
+import { useCallback, useRef, useState } from "react";
 import { Vector3 } from "three";
-import { useRouter } from "next/router";
 import useStore from "@/utils/store";
 
 export const NavPortals = (props) => {
   const group = useRef<any>(null);
-  const router = useRouter();
-  const [selectedPage, setSelectedPage] = useState<string | null>(null)
-  const [hovered, setHovered] = useState(false)
   const setTarget = useStore((state) => state.setTarget)
-  useCursor(hovered)
   
   return (
     <mesh 
       ref={group} 
       rotation={[0.1, 0, 6.3]}
+      {...props}
       >
       <CursorButton1 onClick={ (e) => setTarget(e.object) }/>
       <CursorButton2 onClick={ (e) => setTarget(e.object) }/>

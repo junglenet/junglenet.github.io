@@ -7,7 +7,7 @@ const AsciiBg = (props) => {
   const mesh = useRef<any>(null);
 
   return (
-    <mesh ref={mesh}>
+    <mesh ref={mesh} {...props}>
       <color attach="background" args={['black']} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
@@ -17,6 +17,7 @@ const AsciiBg = (props) => {
     </mesh>
   )
 }
+
 function Torusknot(props) {
   const ref = useRef()
   const [clicked, click] = useState(false)
@@ -38,7 +39,7 @@ function Torusknot(props) {
   )
 }
 
-function AsciiRenderer({ renderIndex = 1, characters = ' .:-+*=%@#', ...options }) {
+export function AsciiRenderer({ renderIndex = 1, characters = ' .:-+*=%@#', ...options }) {
     // Reactive state
     const { size, gl, scene, camera } = useThree()
   
@@ -55,6 +56,7 @@ function AsciiRenderer({ renderIndex = 1, characters = ' .:-+*=%@#', ...options 
     }, [characters, options.invert])
   
     // Append on mount, remove on unmount
+    // @ts-ignore
     useEffect(() => {
       gl.domElement.parentNode.appendChild(effect.domElement)
       return () => gl.domElement.parentNode.removeChild(effect.domElement)
