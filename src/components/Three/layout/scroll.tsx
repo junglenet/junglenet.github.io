@@ -1,9 +1,10 @@
+import Image from 'next/image'
 import { Canvas } from '@react-three/fiber'
-import { Preload, Scroll,ScrollControls} from '@react-three/drei'
+import styled from '@emotion/styled'
 import { Suspense } from 'react'
+import { Preload, Scroll,ScrollControls} from '@react-three/drei'
 import useStore from '@/utils/store'
 import { cvURLS, nftStorageBase } from '@/constants/urls'
-import styled from '@emotion/styled'
 
 const SCanvas = ({ children }) => {
   const dom = useStore((state) => state.dom);
@@ -27,7 +28,7 @@ const SCanvas = ({ children }) => {
             {Object.values(cvURLS).map((cv) =>  (
               <HTMLItem key={`page-${cv.page}`}>
                 {cv.url && <Redirect key={`link-${cv.page}`} href={cv.url} target="_blank"/>}
-                <img key={`${cv.name}`} height={'800px'} width="100%" src={`${nftStorageBase}/${cv.cid}`} alt="test-cv-page"/>
+                <Image key={`${cv.name}`} height={'800px'} width="100%" src={`${nftStorageBase}/${cv.cid}`} alt="test-cv-page"/>
               </HTMLItem>
             ))}
           </Scroll>

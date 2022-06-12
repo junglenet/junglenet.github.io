@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useEffect, useMemo } from 'react'
 import useStore from '@/utils/store'
@@ -21,28 +22,29 @@ function Overlay() {
 
   return (
     <div style={{
-      position: 'fixed', top: 0, left: 0, width: '100%', height: '40px'}}>
-      <div className="row">
-        <a href="/" style={{
-          position: 'absolute', top: 20, left: '5%', 
-          fontSize: '14px', color: textColor,
-          fontFamily: 'Inter, sans-serif'
-        }}>
+      position: 'fixed', top: 0, left: 0, padding: '1rem 2rem'}}>
+      <div style={{
+        display: 'grid',
+        gridAutoFlow: 'row',
+        gridGap: '1rem'
+      }}>
+        <Link href="/">
           <Col align="center" items="start" justify="start" gap="1rem">
             <HomeIcon height='40px' width="40px"/>
-            <div style={{textAlign: 'left', width: '200px'}}>
+            <div style={{textAlign: 'left', fontSize: '14px', color: textColor,}}>
               JUNG COLLECTIVES
             </div>
           </Col>
             
-        </a>
+        </Link>
         <p style={{
           color: textColor, 
           fontSize: '28px',
           fontWeight: 'bold', 
-          position: 'fixed', 
-          top: '8%', 
-          left: '5%'}}>
+          // position: 'fixed', 
+          // top: '8%', 
+          // left: '0'
+          }}>
           {router.route.includes('dungeon') 
               ? "ARCHETYPE: WORLD"
               : ""}

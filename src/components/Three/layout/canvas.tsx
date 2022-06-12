@@ -51,7 +51,6 @@ const LCanvas = ({ children }) => {
     setTimeout(() => {
       // setIsLoading(false)
       if (router.route === '/scenes') {
-        console.log('is scenes')
         router.replace('/scenes/dungeon')
         setTimeout(() => {
   
@@ -70,7 +69,6 @@ const LCanvas = ({ children }) => {
     if (typeof window !== 'undefined') {
      
       window.addEventListener('pageshow', () => {
-        console.log('window is loading')
         if (router.route.includes('scenes/dungeon')) {
           router.replace('/scenes')
           

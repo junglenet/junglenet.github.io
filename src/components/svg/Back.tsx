@@ -4,7 +4,7 @@ const Back: FC<React.SVGAttributes<SVGElement>> = (props) => {
     return (
         <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" {...props}>
             <g style={{mixBlendMode:"overlay"}}>
-            <rect width="300" height="300" fill="url(#pattern0)" fill-opacity="0.8"/>
+            <rect width="300" height="300" fill="url(#pattern0)" flllOpacity="0.8"/>
             </g>
             <defs>
             <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">

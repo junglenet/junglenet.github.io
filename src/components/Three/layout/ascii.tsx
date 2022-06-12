@@ -53,14 +53,14 @@ export function AsciiRenderer({ renderIndex = 1, characters = ' .:-+*=%@#', ...o
       effect.domElement.style.backgroundColor = 'black'
       effect.domElement.style.pointerEvents = 'none'
       return effect
-    }, [characters, options.invert])
+    }, [characters, options.invert, gl, options])
   
     // Append on mount, remove on unmount
     // @ts-ignore
     useEffect(() => {
       gl.domElement.parentNode.appendChild(effect.domElement)
       return () => gl.domElement.parentNode.removeChild(effect.domElement)
-    }, [effect])
+    }, [effect, gl.domElement.parentNode])
   
     // Set size
     useEffect(() => {
