@@ -31,7 +31,7 @@ export const NavPortals = (props) => {
             maxDepthThreshold={1.25}
             roughness={1} mirror={1}                />
         </mesh>
-      <Zoom />
+      {/* <Zoom /> */}
       <Lights />
     </mesh>
   )
