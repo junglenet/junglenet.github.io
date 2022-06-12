@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import { AdaptiveDpr, AdaptiveEvents, Backdrop, BakeShadows, Cloud, Environment, OrbitControls, Preload, Scroll, ScrollControls, Sky, Stars, TransformControls } from '@react-three/drei'
+import { AdaptiveDpr, AdaptiveEvents, Backdrop, Text, BakeShadows, Cloud, Environment, Html, OrbitControls, Preload, Scroll, ScrollControls, Sky, Stars, TransformControls } from '@react-three/drei'
 import useStore from '@/utils/store'
 import { Suspense, useCallback, useEffect, useState } from 'react'
 import Loader from '../helpers/Loader'
@@ -35,7 +35,7 @@ const DungeonView = ({children}) => {
         <Environment preset="city"/>
         <BakeShadows/>
       </Suspense>
-      <Stars radius={100} depth={50} count={1000} factor={5} saturation={0} fade speed={1} />
+      
     </>
   )
 }
@@ -92,6 +92,11 @@ const LCanvas = ({ children }) => {
 
   return isLoading ? (
     <Canvas>
+      <Html>
+        <div style={{position: 'absolute', top: '10%', left: '0'}}>
+          <button style={{color: 'white'}}>Next</button>
+        </div>
+      </Html>
       <Loader />
     </Canvas>
   ) : router.route === "/" ? (
@@ -102,7 +107,6 @@ const LCanvas = ({ children }) => {
           <color attach="background" args={['#000000']} />
           <fog attach="fog" args={['black', 0, 25]} />
           <pointLight position={[0, 10, -10]} intensity={1} />
-          {/* <CameraController/> */}
           <OrbitControls makeDefault/>
           <Suspense fallback={null}>
             {children}
@@ -119,7 +123,7 @@ const LCanvas = ({ children }) => {
         // flat={router.route.includes('cv')}
         // dpr={!router.route.includes('dungeon') && [1, 2]} 
         // @ts-ignore
-        raycaster={ !router.route.includes('cv') && { computeOffsets:({ clientX, clientY }) => ({
+        raycaster={ !router.route === "/cv" && { computeOffsets:({ clientX, clientY }) => ({
             offsetX: clientX, offsetY: clientY 
           })
       }}
@@ -128,14 +132,19 @@ const LCanvas = ({ children }) => {
         camera={router.route.includes('dungeon') ? {
           position: [-1, 0, 15],
           rotation: [Math.PI / 2, 10, 0],
-        } : router.route.includes('cv') 
+        } : router.route === "/cv"
             ? { fov: 15, zoom:  1, position: [0, 0, 0] }
             : {  position: [0, 0, 0]}}
         onCreated={(state) => state.events.connect(dom.current)}
         onPointerMissed={() => setTarget(null)}
       >
+        {/* <mesh position={[-10, 10, 1]}>
+          <Text color="pink" fontSize={1}>
+            Next
+          </Text>
+        </mesh> */}
         {
-          router.route.includes('cv') ? (
+          router.route === "/cv" ? (
             <>
               <ScrollControls damping={6} pages={20} >
                 {/* @ts-ignore */}
@@ -155,7 +164,9 @@ const LCanvas = ({ children }) => {
               </ScrollControls>
             </>
           ) : router.route.includes('dungeon') ? (
-              <DungeonView>{children}</DungeonView>
+              <DungeonView>
+                {children}
+              </DungeonView>
           ) : (<></>)
         }
         

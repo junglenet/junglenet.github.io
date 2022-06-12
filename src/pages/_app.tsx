@@ -16,35 +16,35 @@ const SCanvas = dynamic(() => import('@/components/Three/layout/canvas'), {
 function Overlay() {
   const router = useRouter()
   const textColor = useMemo(() => 
-    router.route.includes('cv') ? 'black' : 'white', [router.route])
+    router.route === "/cv" ? 'black' : 'white', [router.route])
 
   return (
     <div style={{
-      position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}>
-        <a href="https://dogemoms.xyz" style={{
+      position: 'fixed', top: 0, left: 0, width: '100%', height: '40px'}}>
+      <div className="row">
+        <a href="https://dogemoms.xyz/" style={{
           position: 'absolute', top: 20, left: 50, 
-          fontSize: '13px', color: textColor
+          fontSize: '14px', color: textColor
         }}>
-          <br/>
-          <p>
-            JUNG COLLECTIVES
-          </p>
+            <p>
+              JUNG COLLECTIVES
+            </p>
         </a>
-      
-        {/* <div style={{position: 'absolute', top: 20, right: '5%', fontSize:'13px', color: 'white'}}>
-        <Col gap="2rem">
-          <Link href="/">
-            HOME
-          </Link>
-          <Link href="/cv">
-            CV
-          </Link>
-              <Link href="/scenes/dungeon" >
-                DUNGEON
-              </Link>
-        </Col>
-        </div> */}
+        <p style={{
+          color: textColor, 
+          fontSize: '28px',
+          fontWeight: 'bold', 
+          position: 'fixed', 
+          top: '8%', 
+          left: '5%'}}>
+          {router.route === "/cv" 
+            ? 'CURRICULUM VITAE' 
+            : router.route.includes('dungeon') 
+              ? "ARCHETYPE: WORLD" 
+              : "ARCHETYPE: "}
+        </p>
       </div>
+    </div>
   )
 }
 
@@ -73,7 +73,7 @@ function App({ Component, pageProps = { title: 'Jenny Jung' } }) {
     <>
       <Header title={pageProps.title} />
         <Balance child={child} />
-      {/* <Overlay/> */}
+      <Overlay/>
     </>
   )
 }
