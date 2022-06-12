@@ -5,6 +5,10 @@ import { useFrame } from "@react-three/fiber"
 import { useCallback, useRef, useState } from "react";
 import { Vector3 } from "three";
 import useStore from "@/utils/store";
+import EarthHologram from "../../models/EarthHologram";
+import RetroComputer from "../RetroComputer";
+import Room7 from "../../models/Room7";
+import MysteryBox from "../../models/MysteryBox";
 
 export const NavPortals = (props) => {
   const group = useRef<any>(null);
@@ -16,10 +20,10 @@ export const NavPortals = (props) => {
       rotation={[0.1, 0, 6.3]}
       {...props}
       >
-      <CursorButton1 onClick={ (e) => setTarget(e.object) }/>
-      <CursorButton2 onClick={ (e) => setTarget(e.object) } position={[0, 1, 0]}/>
-      <CursorButton3 onClick={ (e) => setTarget(e.object) }/>
-      <CursorButton4 onClick={ (e) => setTarget(e.object) } position={[6, -3, 1]}/>
+      <CVButton onClick={ (e) => setTarget(e.object) }/>
+      <FreshBakedButton onClick={ (e) => setTarget(e.object) } position={[0, 1, 0]}/>
+      <WorldButton onClick={ (e) => setTarget(e.object) }/>
+      <NFTButton onClick={ (e) => setTarget(e.object) } position={[6, -3, 1]}/>
       <mesh rotation={[-Math.PI / 2, 0, 0]}position={[0, -5, -2]}>
         <planeGeometry args={[30, 30]} />
           <MeshReflectorMaterial
@@ -38,7 +42,7 @@ export const NavPortals = (props) => {
   )
 }
 
-const CursorButton1 = (props) => {
+const CVButton = (props) => {
   const group = useRef<any>(null);
   useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
 
@@ -49,13 +53,10 @@ const CursorButton1 = (props) => {
       >
         <Bounds fit clip observe>
           <group castShadow receiveShadow dispose={null}>
-            <Cursor 
-              onClick={props.onClick} 
-              scale={[.5, 1.02, .6]} 
-              position={[2, 5.5, -2]}
-              rotation={[-0.1, Math.PI/ 2, Math.PI]}
-            />
-            <ToolTip1/>
+            <CVObject 
+              rotation={[0, -Math.PI / 2, 0]}
+              position={[5, -3.5, 2]}/>
+            <CVText/>
           </group>
           {/* <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} visible={false} /> */}
         </Bounds>
@@ -63,8 +64,18 @@ const CursorButton1 = (props) => {
   )
 }
 
+const CVObject = (props) => {
+  const mesh = useRef<any>(null);
+  
+  return (
+    <group ref={mesh} {...props}>
+      <RetroComputer />
+    </group>
+  )
+}
 
-const CursorButton2 = (props) => {
+
+const FreshBakedButton = (props) => {
   const group = useRef<any>(null);
   useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
 
@@ -72,20 +83,24 @@ const CursorButton2 = (props) => {
       <group ref={group} {...props}>
           <Bounds fit clip observe>
             <group>
-              <Cursor 
+              {/* <Cursor 
                 onClick={props.onClick}
                 scale={[.5, 1.02, .6]} 
                 position={[-8, -2, -2]} 
                 rotation={[Math.PI, Math.PI, Math.PI]}
+                /> */}
+              <FreshBakedObject 
+                scale={0.06}
+                position={[-8, 1.8, -3]}
                 />
-              <ToolTip2/>
+              <FreshbakedText/>
             </group>
           </Bounds>
       </group>
   )
 }
 
-const CursorButton3 = (props) => {
+const WorldButton = (props) => {
   const group = useRef<any>(null);
   useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
   
@@ -93,21 +108,21 @@ const CursorButton3 = (props) => {
       <group ref={group} {...props}>
           <Bounds fit clip observe>
             <group>
-              <Cursor 
+              {/* <Cursor 
                 onClick={props.onClick} 
                 scale={[.5, 1.04, .6]} 
                 position={[4, -3.5, 2]} 
                 rotation={[-0.1, Math.PI/ 2, -Math.PI / 2]}
-                />
-              <ToolTip3/>
+                /> */}
+              <WorldObject position={[2, 5.5, -2]} />
+              <WorldText/>
             </group>
           </Bounds>
       </group>
   )
 }
 
-
-const CursorButton4 = (props) => {
+const NFTButton = (props) => {
   const group = useRef<any>(null);
   useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
   
@@ -115,12 +130,16 @@ const CursorButton4 = (props) => {
       <group ref={group} {...props}>
           <Bounds fit clip observe>
             <group>
-              <Cursor 
+              {/* <Cursor 
                 onClick={props.onClick} 
                 scale={[.4, .8, .6]} 
                 position={[-11, -0.1, -1.8]} 
-                rotation={[-0.1, .1, -1.6]}/>
-              <ToolTip4/>
+                rotation={[-0.1, .1, -1.6]}/> */}
+                <NFTObject 
+                  scale={0.02}
+                  position={[-12, -1, 0]}
+                  />
+              <NFTText/>
             </group>
           </Bounds>
       </group>
@@ -157,7 +176,7 @@ function Cursor(props) {
   )
 }
 
-function ToolTip1(props) {
+function CVText(props) {
   const ref = useRef<any>(null);
   const router = useStore((state) => state.router);
   const [hovered, hover] = useState(false);
@@ -176,12 +195,14 @@ function ToolTip1(props) {
       onPointerOver={() => hover(true)}
       onPointerOut={() => hover(false)}
       >
-        <Text color="gold" fontSize={2} letterSpacing={-0.06} {...props}>CV</Text>
+        <Text color="gold" fontSize={2} letterSpacing={-0.06} {...props}>
+          CV
+        </Text>
       </mesh>
   );
 }
 
-function ToolTip2(props) {
+function FreshbakedText(props) {
   const ref = useRef<any>(null);
   const [hovered, hover] = useState(false)
   useCursor(hovered)
@@ -216,7 +237,24 @@ function ToolTip2(props) {
   );
 }
 
-function ToolTip3(props) {
+const FreshBakedObject = (props) => {
+  const mesh = useRef<any>(null);
+  useFrame((state, delta) =>
+  mesh.current
+    ? (mesh.current.rotation.y = mesh.current.rotation.y += 0.01)
+    : null
+  );
+
+
+  return (
+    <mesh ref={mesh} {...props} >
+      <ambientLight />
+      <MysteryBox />
+    </mesh>
+  )
+}
+
+function WorldText(props) {
   const ref = useRef<any>(null);
   const router = useStore((state) => state.router)
   const [hovered, hover] = useState(false)
@@ -245,7 +283,22 @@ function ToolTip3(props) {
   );
 }
 
-function ToolTip4(props) {
+const WorldObject = (props) => {
+  const mesh = useRef<any>(null);
+  useFrame((state, delta) =>
+  mesh.current
+    ? (mesh.current.rotation.y = mesh.current.rotation.y += 0.01)
+    : null
+)
+
+  return (
+    <mesh ref={mesh} {...props} >
+      <EarthHologram />
+    </mesh>
+  )
+}
+
+function NFTText(props) {
   const ref = useRef<any>(null);
   const [hovered, hover] = useState(false)
   useCursor(hovered)
@@ -279,6 +332,16 @@ function ToolTip4(props) {
           </Text>
       </mesh>
   );
+}
+
+const NFTObject = (props) => {
+  const mesh = useRef<any>(null);
+
+  return (
+    <mesh ref={mesh} {...props} >
+      <Room7 />
+    </mesh>
+  )
 }
 
 function Lights() {
