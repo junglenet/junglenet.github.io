@@ -3,9 +3,10 @@ import dynamic from 'next/dynamic'
 import { useEffect, useMemo } from 'react'
 import useStore from '@/utils/store'
 import partition from '@/utils/partition'
-import Dom from '@/components/Three/layout/dom'
 import Header from '@/config'
-// import '@/styles/globals.css'
+import Dom from '@/components/Three/layout/dom'
+import { HomeIcon } from '@/components/svg'
+import { Col } from '@/components/Layout/styled'
 import '../index.css';
 
 const SCanvas = dynamic(() => import('@/components/Three/layout/canvas'), {
@@ -22,13 +23,18 @@ function Overlay() {
     <div style={{
       position: 'fixed', top: 0, left: 0, width: '100%', height: '40px'}}>
       <div className="row">
-        <a href="https://dogemoms.xyz/" style={{
-          position: 'absolute', top: 20, left: 50, 
-          fontSize: '14px', color: textColor
+        <a href="/" style={{
+          position: 'absolute', top: 20, left: '5%', 
+          fontSize: '14px', color: textColor,
+          fontFamily: 'Inter, sans-serif'
         }}>
-            <p>
+          <Col align="center" items="start" justify="start" gap="1rem">
+            <HomeIcon height='40px' width="40px"/>
+            <div style={{textAlign: 'left', width: '200px'}}>
               JUNG COLLECTIVES
-            </p>
+            </div>
+          </Col>
+            
         </a>
         <p style={{
           color: textColor, 
@@ -37,11 +43,9 @@ function Overlay() {
           position: 'fixed', 
           top: '8%', 
           left: '5%'}}>
-          {router.route === "/cv" 
-            ? 'CURRICULUM VITAE' 
-            : router.route.includes('dungeon') 
-              ? "ARCHETYPE: WORLD" 
-              : "ARCHETYPE: "}
+          {router.route.includes('dungeon') 
+              ? "ARCHETYPE: WORLD"
+              : ""}
         </p>
       </div>
     </div>
