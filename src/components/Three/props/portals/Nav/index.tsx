@@ -17,8 +17,9 @@ export const NavPortals = (props) => {
       {...props}
       >
       <CursorButton1 onClick={ (e) => setTarget(e.object) }/>
-      <CursorButton2 onClick={ (e) => setTarget(e.object) }/>
+      <CursorButton2 onClick={ (e) => setTarget(e.object) } position={[0, 1, 0]}/>
       <CursorButton3 onClick={ (e) => setTarget(e.object) }/>
+      <CursorButton4 onClick={ (e) => setTarget(e.object) } position={[6, -3, 1]}/>
       <mesh rotation={[-Math.PI / 2, 0, 0]}position={[0, -5, -2]}>
         <planeGeometry args={[30, 30]} />
           <MeshReflectorMaterial
@@ -48,7 +49,12 @@ const CursorButton1 = (props) => {
       >
         <Bounds fit clip observe>
           <group castShadow receiveShadow dispose={null}>
-            <Cursor onClick={props.onClick} scale={[.5, 1.02, .6]} position={[4.8, 3.8, -1]} rotation={[1.4, .1, 2]}/>
+            <Cursor 
+              onClick={props.onClick} 
+              scale={[.5, 1.02, .6]} 
+              position={[2, 5.5, -2]}
+              rotation={[-0.1, Math.PI/ 2, Math.PI]}
+            />
             <ToolTip1/>
           </group>
           {/* <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} visible={false} /> */}
@@ -66,7 +72,12 @@ const CursorButton2 = (props) => {
       <group ref={group} {...props}>
           <Bounds fit clip observe>
             <group>
-              <Cursor onClick={props.onClick} scale={[.5, 1.02, .6]} position={[-8, -2, 1]} rotation={[-0.2, 1.2, -0.5]}/>
+              <Cursor 
+                onClick={props.onClick}
+                scale={[.5, 1.02, .6]} 
+                position={[-8, -2, -2]} 
+                rotation={[Math.PI, Math.PI, Math.PI]}
+                />
               <ToolTip2/>
             </group>
           </Bounds>
@@ -82,8 +93,34 @@ const CursorButton3 = (props) => {
       <group ref={group} {...props}>
           <Bounds fit clip observe>
             <group>
-              <Cursor onClick={props.onClick} scale={[.5, 1.02, .6]} position={[4.4, -3.5, 0]} rotation={[-0.4, 1.6, -0.5]}/>
+              <Cursor 
+                onClick={props.onClick} 
+                scale={[.5, 1.04, .6]} 
+                position={[4, -3.5, 2]} 
+                rotation={[-0.1, Math.PI/ 2, -Math.PI / 2]}
+                />
               <ToolTip3/>
+            </group>
+          </Bounds>
+      </group>
+  )
+}
+
+
+const CursorButton4 = (props) => {
+  const group = useRef<any>(null);
+  useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
+  
+  return (
+      <group ref={group} {...props}>
+          <Bounds fit clip observe>
+            <group>
+              <Cursor 
+                onClick={props.onClick} 
+                scale={[.4, .8, .6]} 
+                position={[-11, -0.1, -1.8]} 
+                rotation={[-0.1, .1, -1.6]}/>
+              <ToolTip4/>
             </group>
           </Bounds>
       </group>
@@ -130,8 +167,7 @@ function ToolTip1(props) {
     <mesh 
       castShadow
       ref={ref}
-      position={[2.4, 3.4, -2]}
-      rotation={[0, 0, 0]}
+      position={[4, -2.4, 0]}  
       onClick={(e) =>{ 
         e.stopPropagation()
 
@@ -160,7 +196,7 @@ function ToolTip2(props) {
     <mesh 
       castShadow
       ref={ref}
-      position={[-8, 0, -2]}
+      position={[-6, 0, -2]}
       onClick={(e) =>{ 
         e.stopPropagation()
         onClick()
@@ -169,7 +205,13 @@ function ToolTip2(props) {
       onPointerOver={() => hover(true)}
       onPointerOut={() => hover(false)}
       >
-        <Text color="gold" fontSize={2} letterSpacing={-0.06} {...props}>FRESHBAKED</Text>
+        <Text 
+          color="gold" 
+          fontSize={1.5} 
+          letterSpacing={-0.06} 
+          {...props}>
+            FRESHBAKED
+          </Text>
       </mesh>
   );
 }
@@ -184,7 +226,7 @@ function ToolTip3(props) {
     <mesh 
       castShadow
       ref={ref}
-      position={[5, -2.4, -2]}  
+      position={[2.4, 3.4, -2]}
       onClick={(e) =>{ 
         e.stopPropagation()
 
@@ -200,6 +242,42 @@ function ToolTip3(props) {
         </Text>
       </mesh>
 
+  );
+}
+
+function ToolTip4(props) {
+  const ref = useRef<any>(null);
+  const [hovered, hover] = useState(false)
+  useCursor(hovered)
+
+  const onClick = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      window.open('https://cyber.xyz', '_blank')
+    } 
+  }, [])
+  
+  return (
+    <mesh 
+      castShadow
+      ref={ref}
+      position={[-8, 0, -2]}
+      onClick={(e) =>{ 
+        e.stopPropagation()
+        onClick()
+       
+      }}
+      onPointerOver={() => hover(true)}
+      onPointerOut={() => hover(false)}
+      >
+        <Text 
+          color="gold" 
+          fontSize={2} 
+          letterSpacing={-0.06} 
+          {...props}
+          >
+            NFTs
+          </Text>
+      </mesh>
   );
 }
 
