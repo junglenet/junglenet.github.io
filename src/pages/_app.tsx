@@ -34,6 +34,18 @@ function Overlay() {
             <div style={{textAlign: 'left', fontSize: '14px', color: textColor,}}>
               JUNG COLLECTIVES
             </div>
+            {/* {router.route === "/" && (
+              <div style={{
+                position: 'fixed',
+                top: '0',
+                left: '50%',
+                color: 'white',
+                paddingTop: '1.5rem',
+                fontWeight: 'bold'
+              }}>
+                MENU
+              </div>
+            )} */}
           </Col>
             
         </Link>
@@ -47,7 +59,9 @@ function Overlay() {
           }}>
           {router.route.includes('dungeon') 
               ? "ARCHETYPE: WORLD"
-              : ""}
+              : router.route === "/" 
+                ? "MENU" 
+                : ""}
         </p>
       </div>
     </div>
