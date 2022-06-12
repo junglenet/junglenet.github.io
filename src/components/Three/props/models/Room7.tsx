@@ -7,7 +7,7 @@ title: Room 07 / MagicaVoxel
 */
 
 import * as THREE from 'three'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 
@@ -23,6 +23,11 @@ type GLTFResult = GLTF & {
 export default function Model({ ...props }: JSX.IntrinsicElements['group']) {
   const group = useRef<THREE.Group>()
   const { nodes, materials } = useGLTF('/room7-transformed.glb') as GLTFResult
+
+  useEffect(() => {
+    console.log('nodes ', nodes)
+  }, [nodes])
+
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} scale={2.31} userData={{ name: 'Sketchfab_model' }}>

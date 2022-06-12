@@ -10,6 +10,7 @@ import RetroComputer from "../RetroComputer";
 import Room7 from "../../models/Room7";
 import MysteryBox from "../../models/MysteryBox";
 import Lightbulb from "../../environment/Lights/Lightbulb";
+import NFTRoom from "@/components/Three/canvas/NFTRoom";
 
 export const NavPortals = (props) => {
   const group = useRef<any>(null);
@@ -139,7 +140,7 @@ const NFTButton = (props) => {
                 scale={[.4, .8, .6]} 
                 position={[-11, -0.1, -1.8]} 
                 rotation={[-0.1, .1, -1.6]}/> */}
-                <NFTObject 
+                <NFTRoom
                   scale={0.02}
                   position={[-12, -1, 0]}
                   />
