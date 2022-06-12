@@ -1,9 +1,7 @@
 import * as THREE from "three";
-import { Bounds, Edges, useGLTF, Text, useCursor, MeshReflectorMaterial } from "@react-three/drei"
-import { Depth, Fresnel, LayerMaterial } from "lamina";
+import { Text, useCursor, MeshReflectorMaterial } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useCallback, useRef, useState } from "react";
-import {  Vector3 } from "three";
 import useStore from "@/utils/store";
 import EarthHologram from "../../models/EarthHologram";
 import RetroComputer from "../RetroComputer";
@@ -36,7 +34,6 @@ export const NavPortals = (props) => {
             maxDepthThreshold={1.25}
             roughness={2} mirror={2}                />
         </mesh>
-      {/* <Zoom /> */}
       <Lights />
     </mesh>
   )
@@ -51,15 +48,10 @@ const CVButton = (props) => {
         ref={group}
         {...props}
       >
-        <Bounds fit clip observe>
-          <group castShadow receiveShadow dispose={null}>
-            <CVObject 
-              rotation={[0, -Math.PI / 2, 0]}
-              position={[5, -3.5, 2]}/>
-            <CVText/>
-          </group>
-          {/* <gridHelper args={[10, 40, '#101010', '#050505']} position={[0, 0, 4]} rotation={[0, 0, Math.PI / 2]} visible={false} /> */}
-        </Bounds>
+        <CVObject 
+          rotation={[0, -Math.PI / 2, 0]}
+          position={[5, -3.5, 2]}/>
+        <CVText/>
       </group>
   )
 }
@@ -72,112 +64,6 @@ const CVObject = (props) => {
       <rectAreaLight position={[5, 0, 1]}/>
       <RetroComputer />
     </group>
-  )
-}
-
-
-const FreshBakedButton = (props) => {
-  const group = useRef<any>(null);
-  useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
-
-  return (
-      <group ref={group} {...props}>
-          <Bounds fit clip observe>
-            <group>
-              {/* <Cursor 
-                onClick={props.onClick}
-                scale={[.5, 1.02, .6]} 
-                position={[-8, -2, -2]} 
-                rotation={[Math.PI, Math.PI, Math.PI]}
-                /> */}
-              <rectAreaLight 
-                position={[-8, 4, -1]}
-                />
-              <FreshBakedObject 
-                scale={0.06}
-                position={[-8, 1.8, -3]}
-                />
-              <FreshbakedText/>
-            </group>
-          </Bounds>
-      </group>
-  )
-}
-
-const WorldButton = (props) => {
-  const group = useRef<any>(null);
-  useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
-  
-  return (
-      <group ref={group} {...props}>
-          <Bounds fit clip observe>
-            <group>
-              {/* <Cursor 
-                onClick={props.onClick} 
-                scale={[.5, 1.04, .6]} 
-                position={[4, -3.5, 2]} 
-                rotation={[-0.1, Math.PI/ 2, -Math.PI / 2]}
-                /> */}
-              <WorldObject position={[2, 5.5, -2]} />
-              <WorldText/>
-            </group>
-          </Bounds>
-      </group>
-  )
-}
-
-const NFTButton = (props) => {
-  const group = useRef<any>(null);
-  useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
-  
-  return (
-      <group ref={group} {...props}>
-          <Bounds fit clip observe>
-            <group>
-              {/* <Cursor 
-                onClick={props.onClick} 
-                scale={[.4, .8, .6]} 
-                position={[-11, -0.1, -1.8]} 
-                rotation={[-0.1, .1, -1.6]}/> */}
-                <rectAreaLight position={[-13, -1, 1]}/>
-                <NFTObject
-                  scale={0.2}
-                  position={[-13, 0, -2]}
-                  />
-              <NFTText position={[-9, 0, -2]}/>
-            </group>
-          </Bounds>
-      </group>
-  )
-}
-
-
-function Cursor(props) {
-  const ref = useRef<any>(null);
-  // @ts-ignore
-  const {nodes } = useGLTF('/lamina-cursor.glb')
-
-  // Animate gradient
-  useFrame((state) => {
-    const sin = Math.sin(state.clock.elapsedTime / 2)
-    const cos = Math.cos(state.clock.elapsedTime / 2)
-    ref.current.layers[0].origin.set(cos , 0, 0)
-    ref.current.layers[1].origin.set(cos, sin, cos)
-    ref.current.layers[2].origin.set(sin, cos, sin)
-    ref.current.layers[3].origin.set(cos, sin, cos)
-  })
-
-  return (
-    <mesh geometry={nodes.Cube.geometry} {...props} >
-      <LayerMaterial ref={ref} toneMapped={false}>
-        <Depth colorA="#ff0080" colorB="black" alpha={1} mode="normal"  far={0.5} origin={[0, 0, 0]} />
-        <Depth colorA="blue" colorB="#f7b955" alpha={1} mode="add"  far={2} origin={[0, 1, 1]} />
-        <Depth colorA="green" colorB="#f7b955" alpha={1} mode="add"  far={3} origin={[0, 1, -1]} />
-        <Depth colorA="white" colorB="red" alpha={1} mode="overlay" far={1.5} origin={[1, -1, -1]} />
-        <Fresnel mode="add" color="white" intensity={0.5} power={1.5} bias={0.05} />
-      </LayerMaterial>
-      <Edges color="gold" />
-    </mesh>
   )
 }
 
@@ -205,6 +91,80 @@ function CVText(props) {
         </Text>
       </mesh>
   );
+}
+
+const WorldButton = (props) => {
+  const group = useRef<any>(null);
+  useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
+  
+  return (
+      <group ref={group} {...props}>
+        <WorldObject position={[2, 5.5, -2]} />
+        <WorldText/>
+      </group>
+  )
+}
+
+function WorldText(props) {
+  const ref = useRef<any>(null);
+  const router = useStore((state) => state.router)
+  const [hovered, hover] = useState(false)
+  useCursor(hovered)
+
+  return (
+    <mesh 
+      castShadow
+      ref={ref}
+      position={[2.4, 3.4, -2]}
+      onClick={(e) =>{ 
+        e.stopPropagation()
+
+       router.push('/scenes/dungeon')
+      }}
+      onPointerOver={() => hover(true)}
+      onPointerOut={() => hover(false)}
+      >
+        <Text fontSize={2} letterSpacing={-0.06} 
+          color="gold" 
+          {...props}>
+          WORLD  
+        </Text>
+      </mesh>
+
+  );
+}
+
+const WorldObject = (props) => {
+  const mesh = useRef<any>(null);
+  useFrame((state, delta) =>
+  mesh.current
+    ? (mesh.current.rotation.y = mesh.current.rotation.y += 0.01)
+    : null
+)
+
+  return (
+    <mesh ref={mesh} receiveShadow {...props} >
+      <EarthHologram />
+    </mesh>
+  )
+}
+
+const FreshBakedButton = (props) => {
+  const group = useRef<any>(null);
+  useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
+
+  return (
+      <group ref={group} {...props}>
+        <rectAreaLight 
+          position={[-8, 4, -1]}
+          />
+        <FreshBakedObject 
+          scale={0.06}
+          position={[-8, 1.8, -3]}
+          />
+        <FreshbakedText/>
+      </group>
+  )
 }
 
 function FreshbakedText(props) {
@@ -253,54 +213,24 @@ const FreshBakedObject = (props) => {
 
   return (
     <mesh ref={mesh} receiveShadow {...props} >
-      {/* <pointLight intensity={0.6} position={[0, 8, -3]}/> */}
-
       <MysteryBox />
     </mesh>
   )
 }
 
-function WorldText(props) {
-  const ref = useRef<any>(null);
-  const router = useStore((state) => state.router)
-  const [hovered, hover] = useState(false)
-  useCursor(hovered)
-
+const NFTButton = (props) => {
+  const group = useRef<any>(null);
+  useFrame(({ pointer }) => (group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, pointer.x * (Math.PI / 5), 0.005)))
+  
   return (
-    <mesh 
-      castShadow
-      ref={ref}
-      position={[2.4, 3.4, -2]}
-      onClick={(e) =>{ 
-        e.stopPropagation()
-
-       router.push('/scenes/dungeon')
-      }}
-      onPointerOver={() => hover(true)}
-      onPointerOut={() => hover(false)}
-      >
-        <Text fontSize={2} letterSpacing={-0.06} 
-          color="gold" 
-          {...props}>
-          WORLD  
-        </Text>
-      </mesh>
-
-  );
-}
-
-const WorldObject = (props) => {
-  const mesh = useRef<any>(null);
-  useFrame((state, delta) =>
-  mesh.current
-    ? (mesh.current.rotation.y = mesh.current.rotation.y += 0.01)
-    : null
-)
-
-  return (
-    <mesh ref={mesh} receiveShadow {...props} >
-      <EarthHologram />
-    </mesh>
+      <group ref={group} {...props}>
+         <rectAreaLight position={[-13, -1, 1]}/>
+          <NFTObject
+            scale={0.2}
+            position={[-13, 0, -2]}
+            />
+        <NFTText position={[-9, 0, -2]}/>
+      </group>
   )
 }
 
@@ -371,14 +301,6 @@ function Lights() {
       <spotLight castShadow ref={front} penumbra={0.75} angle={Math.PI / 4} position={[0, 0, 4]} distance={10} intensity={15} shadow-mapSize={[2048, 2048]} />
     </>
   )
-}
-
-function Zoom() {
-  useFrame((state) => {
-    state.camera.position.lerp(new Vector3(0, 0, 10), 0.000)
-    state.camera.lookAt(-2, 0, 0)
-  });
-  return null;
 }
 
 export default NavPortals;
