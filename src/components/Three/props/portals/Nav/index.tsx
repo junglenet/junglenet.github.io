@@ -1,14 +1,15 @@
 import * as THREE from "three";
-import { Bounds, Edges, useGLTF, Text, useCursor, MeshReflectorMaterial } from "@react-three/drei"
+import { Bounds, Edges, useGLTF, Text, useCursor, MeshReflectorMaterial, SpotLight } from "@react-three/drei"
 import { Depth, Fresnel, LayerMaterial } from "lamina";
 import { useFrame } from "@react-three/fiber"
 import { useCallback, useRef, useState } from "react";
-import { Vector3 } from "three";
+import { LightProbe, Vector3 } from "three";
 import useStore from "@/utils/store";
 import EarthHologram from "../../models/EarthHologram";
 import RetroComputer from "../RetroComputer";
 import Room7 from "../../models/Room7";
 import MysteryBox from "../../models/MysteryBox";
+import Lightbulb from "../../environment/Lights/Lightbulb";
 
 export const NavPortals = (props) => {
   const group = useRef<any>(null);
@@ -89,6 +90,9 @@ const FreshBakedButton = (props) => {
                 position={[-8, -2, -2]} 
                 rotation={[Math.PI, Math.PI, Math.PI]}
                 /> */}
+              <rectAreaLight 
+                position={[-8, .8, -1]}
+                />
               <FreshBakedObject 
                 scale={0.06}
                 position={[-8, 1.8, -3]}
@@ -248,8 +252,8 @@ const FreshBakedObject = (props) => {
 
   return (
     <mesh ref={mesh} {...props} >
-      <ambientLight />
-      <MysteryBox />
+      {/* <pointLight intensity={0.6} position={[0, 8, -3]}/> */}
+      <MysteryBox receiveShadow />
     </mesh>
   )
 }
