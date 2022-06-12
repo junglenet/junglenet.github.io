@@ -1,6 +1,6 @@
 import { SpotLight } from "@react-three/drei";
 import { useRef } from "react";
-import Room7 from "../props/models/Room7";
+import Room12 from "../props/models/Room12";
 
 // Geometry
 export default function NFTRoom(props) {
@@ -20,7 +20,7 @@ export default function NFTRoom(props) {
         attenuation={3}
         anglePower={5} // Diffuse-cone anglePower (default: 5)
       />
-      <Room7/>
+      <Room12/>
     </mesh>
   );
 }

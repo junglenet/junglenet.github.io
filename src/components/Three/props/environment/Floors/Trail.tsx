@@ -19,6 +19,7 @@ const TrailRoad = (props) => {
     >
       {/* If `target` is not defined, Trail will use the first `Object3D` child as the target. */}
       <mesh>
+        {/* Tester objects */}
       <Phonebooth route="/" />
         {/* <sphereGeometry /> */}
         <meshBasicMaterial />

@@ -5,8 +5,8 @@ import SimplexNoise from "simplex-noise"
 import { useFrame, useLoader } from "@react-three/fiber"
 import { Geometry } from "three/examples/jsm/deprecated/Geometry"
 //These have been taken from "Realistic real-time grass rendering" by Eddie Lee, 2010
-import bladeDiffuse from "../../textures/blade_diffuser.jpg"
-import bladeAlpha from "../../textures/blade_alpha.jpg"
+// import bladeDiffuse from "../../textures/blade_diffuser.jpg"
+// import bladeAlpha from "../../textures/blade_alpha.jpg"
 import "../../materials/GrassMaterial"
 
 const simplex = new SimplexNoise(Math.random)
