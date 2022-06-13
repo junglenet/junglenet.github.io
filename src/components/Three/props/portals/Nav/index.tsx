@@ -241,7 +241,7 @@ function NFTText(props) {
 
   const onClick = useCallback(() => {
     if (typeof window !== 'undefined') {
-      window.open('https://cyber.xyz', '_blank')
+      window.open('https://cyber.xyz/90skid', '_blank')
     } 
   }, [])
   
