@@ -1,7 +1,6 @@
 export const tempImgUrl = "https://gateway.pinata.cloud/ipfs/QmYU8aQefZYZi6hLPBCu6ms44Ca7kDJvEKMSVk5YhvGRV3";
 
-export const nftStorageBase = "https://ipfs.infura.io/ipfs";
-
+export const nftStorageBase = "https://nftstorage.link/ipfs";
 export const cvURLS = [
     {
       page: 1,

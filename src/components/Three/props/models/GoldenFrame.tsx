@@ -44,7 +44,7 @@ const Picture = (props) => {
   return (
   <mesh ref={mesh} {...props}>
     <Image 
-      url="https://ipfs.infura.io/ipfs/QmYU8aQefZYZi6hLPBCu6ms44Ca7kDJvEKMSVk5YhvGRV3"
+      url="https://nftstorage.link/ipfs/QmYU8aQefZYZi6hLPBCu6ms44Ca7kDJvEKMSVk5YhvGRV3"
     />
   </mesh>)
 }
