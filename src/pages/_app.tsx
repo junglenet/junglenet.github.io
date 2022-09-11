@@ -6,7 +6,7 @@ import useStore from '@/utils/store'
 import partition from '@/utils/partition'
 import Header from '@/config'
 import Dom from '@/components/Three/layout/dom'
-import { HomeIcon } from '@/components/svg'
+import { ExternalLinkIcon, HomeIcon } from '@/components/svg'
 import { Col } from '@/components/Layout/styled'
 import '../index.css';
 
@@ -21,35 +21,52 @@ function Overlay() {
     router.route === "/cv" ? 'black' : 'white', [router.route])
 
   return (
-    <div style={{
-      position: 'fixed', top: 0, left: 0, padding: '1rem 2rem'}}>
+    <>
       <div style={{
-        display: 'grid',
-        gridAutoFlow: 'row',
-        gridGap: '1rem'
-      }}>
-        <Link href="/">
-          <Col align="center" items="start" justify="start" gap="1rem">
-            <HomeIcon height='40px' width="40px"/>
-            <div style={{textAlign: 'left', fontSize: '14px', color: textColor,}}>
-              JUNG COLLECTIVES
-            </div>
-          </Col>
-            
-        </Link>
-        <p style={{
-          color: textColor, 
-          fontSize: '28px',
-          fontWeight: 'bold', 
-          }}>
-          {router.route.includes('dungeon') 
-              ? "ARCHETYPE: WORLD"
-              : router.route === "/" 
-                ? "MENU" 
-                : ""}
-        </p>
+        position: 'fixed', top: 0, left: 0, padding: '1rem 2rem'}}>
+        <div style={{
+          display: 'grid',
+          gridAutoFlow: 'row',
+          gridGap: '1rem'
+        }}>
+          <Link href="/">
+            <Col align="center" items="start" justify="start" gap="1rem" style={{cursor: "pointer"}}>
+              <HomeIcon height='40px' width="40px"/>
+              <div style={{textAlign: 'left', fontSize: '14px', color: textColor,}}>
+                JUNG COLLECTIVES
+              </div>
+            </Col>
+              
+          </Link>
+          <p style={{
+            color: textColor, 
+            fontSize: '28px',
+            fontWeight: 'bold', 
+            }}>
+            {router.route.includes('dungeon') 
+                ? "ARCHETYPE: WORLD"
+                : router.route === "/" 
+                  ? "MENU" 
+                  : ""}
+          </p>
+        </div>
       </div>
-    </div>
+      <div style={{
+        position: 'fixed', bottom: 0, left: 0, padding: '1rem 2rem'}}>
+        <div style={{
+          display: 'grid',
+          gridAutoFlow: 'row',
+          gridGap: '1rem'
+        }}>
+          <Link href="https://github.com/jungsNN">
+            <Col align="center" items="start" justify="start" gap="1rem" style={{cursor: "pointer"}}>
+              <ExternalLinkIcon height='40px' width="40px"/>
+            </Col>
+              
+          </Link>
+        </div>
+      </div>
+    </>
   )
 }
 
