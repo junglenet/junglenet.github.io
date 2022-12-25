@@ -196,7 +196,7 @@ function FreshbakedText(props) {
           fontSize={1.5} 
           letterSpacing={-0.06} 
           {...props}>
-            FRESHBAKED
+            FUNKY FLOWERZ
           </Text>
       </mesh>
   );
