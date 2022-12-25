@@ -174,7 +174,7 @@ function FreshbakedText(props) {
 
   const onClick = useCallback(() => {
     if (typeof window !== 'undefined') {
-      window.open('https://freshbaked.io', '_blank')
+      window.open('https://funkyflowerz.com', '_blank')
     } 
   }, [])
   
